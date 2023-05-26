@@ -1,0 +1,41 @@
+[{
+  "output": "eDP-1",
+  "include": "~/.config/waybar/common.jsonc",
+  "modules-left": [
+    "clock",
+    "wlr/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "custom/updates",
+    "network",
+    "bluetooth",
+    "backlight",
+    "pulseaudio",
+    "pulseaudio#microphone",
+    "battery"
+  ]
+},
+{
+  "output": "DP-1",
+  "include": "~/.config/waybar/common.jsonc",
+  "modules-left": [
+    "clock",
+    "wlr/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [],
+  "modules-right": [
+    "tray",
+    "custom/updates",
+    "network",
+    "bluetooth",
+    "backlight#external",
+    "pulseaudio",
+    "pulseaudio#microphone",
+    "battery"
+  ]
+}
+]
