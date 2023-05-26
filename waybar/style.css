@@ -1,0 +1,130 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: JetBrainsMono Nerd Font,SourceHanSansSC;
+    /* font-weight: bold; */
+    /* 900-Black(heavy) */
+    font-weight: 900;
+    font-size: 16px;
+    font-feature-settings: "zero,cv07,cv11,cv18";
+    min-height: 0;
+}
+
+window#waybar {
+    background: transparent;
+    color: transparent;
+}
+
+tooltip {
+    background: #1e1e2e;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #11111b;
+}
+
+#workspaces button {
+    padding: 5px;
+    padding-right: 9px;
+    color: #313244;
+    border-radius: 5px;
+}
+
+#workspaces button.active {
+    color: #a6adc8;
+}
+
+#workspaces button.focused {
+    color: #a6adc8;
+    background: #eba0ac;
+}
+
+#workspaces button.urgent {
+    color: #11111b;
+    background: #a6e3a1;
+}
+
+#workspaces button:hover {
+  background: #e0e0e0;
+    /* background: #11111b; */
+    color: #1e1e2e;
+    border-radius: 10px;
+}
+
+#custom-updates,
+#window,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#workspaces,
+#tray,
+#bluetooth,
+#backlight {
+    background: #1e1e2e;
+    padding-left: 7px;
+    padding-right: 7px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 5px;
+    color: #cdd6f4;
+    /* border: 1px solid #181825; */
+}
+
+#clock {
+    padding-left:10px;
+    margin-left: 5px;
+    border-radius: 5px 0 0 5px;
+}
+
+#workspaces {
+    /* background: #1e1e2e; */
+}
+
+#window {
+    padding-right: 15px;
+    border-radius: 0 5px 5px 0;
+}
+
+#tray {
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 5px 0 0 5px;
+}
+
+#custom-updates {
+    /* color: #f5c2e7; */
+}
+
+#network {
+    /* color: #f9e2af; */
+}
+
+#bluetooth {
+    /* color: #89b4fa; */
+}
+
+#backlight {
+    /* color: #ffffff; */
+}
+
+#pulseaudio {
+    /* color: #89b4fa; */
+}
+
+#pulseaudio.microphone {
+    /* color: #cba6f7; */
+}
+
+#battery {
+    /* color: #a6e3a1; */
+    padding-right: 10px;
+    margin-right: 5px;
+    border-radius: 0 5px 5px 0;
+}
+
+/* #battery.charging { */
+/*     margin-right: 5px; */
+/*     color: #80ff00; */
+/*     border-radius: 0px 5px 5px 0px; */
+/* } */
