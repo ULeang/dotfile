@@ -8,3 +8,4 @@ export EDITOR="nvim"
 
 # my script dir
 export PATH="$HOME/workspace/zsh.d/script:"$PATH
+. "$HOME/.cargo/env"
