@@ -12,7 +12,7 @@ alias mcd="~/workspace/mcd/"
 
 alias nv="nvim"
 
-alias nvp="nv ~/workspace/mcd/pyCodes/"
-alias nvh="nv ~/workspace/mcd/hsCodes/"
-alias nvs="nv ~/workspace/mcd/shCodes/"
-alias nvc="nv ~/workspace/mcd/xxCodes/"
+alias nvp="cd ~/workspace/mcd/pyCodes/ && nv"
+alias nvh="cd ~/workspace/mcd/hsCodes/ && nv"
+alias nvs="cd ~/workspace/mcd/shCodes/ && nv"
+alias nvc="cd ~/workspace/mcd/xxCodes/ && nv"

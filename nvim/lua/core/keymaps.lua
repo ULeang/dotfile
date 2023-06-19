@@ -28,4 +28,4 @@ map("t", "<C-n><C-n>", "<C-\\><C-n>", opt)
 
 map("n","<leader>gg","gg=GGzz", opt)
 map("n","<leader>o",":SymbolsOutline<CR>", opt)
-map("n","<leader>t",":12sp<CR> | :term<CR>", opt)
+map("n","<leader>t",":12sp | term<CR>", opt)
