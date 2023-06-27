@@ -45,6 +45,8 @@
         "format-muted": "󰝟  Muted",
         "on-click": "~/.config/scripts/volume --toggle",
         "on-click-right": "pavucontrol",
+        "on-click-middle": "~/.config/scripts/volume --switch20",
+        "on-double-click-middle": "~/.config/scripts/volume --switch100",
         "on-scroll-up": "~/.config/scripts/volume --inc",
         "on-scroll-down": "~/.config/scripts/volume --dec",
         // "min-length": 5,

@@ -2,6 +2,10 @@
 
 iDIR="$HOME/.config/waybar/icons"
 
+switch() {
+  wpctl set-volume @DEFAULT_AUDIO_SINK@ $1%
+}
+
 # Increase Volume
 inc_volume() {
   wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
@@ -45,6 +49,10 @@ elif [[ "$1" == "--mic-inc" ]]; then
 	inc_mic_volume
 elif [[ "$1" == "--mic-dec" ]]; then
 	dec_mic_volume
+elif [[ "$1" == "--switch20" ]]; then
+  switch 20
+elif [[ "$1" == "--switch100" ]]; then
+  switch 100
 else
 	return 1
 fi
