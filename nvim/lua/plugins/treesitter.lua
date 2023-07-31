@@ -3,7 +3,7 @@ return {
   config = function()
     require("nvim-treesitter.configs").setup{
       ensure_installed = { "c", "lua", "cpp", "haskell", "bash", "python", "rust", "javascript",
-      "css", "cmake", "json", "markdown", "markdown_inline", "html", "regex", "perl"},
+      "css", "cmake", "json", "markdown", "markdown_inline", "html", "regex", "perl", "verilog"},
 
       highlight = { enable = true },
 
