@@ -20,4 +20,6 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 
 [ -f "/home/ulya/.ghcup/env" ] && source "/home/ulya/.ghcup/env" # ghcup-env
-source ~/.cargo/env
+[ -f "/home/ulya/.cargo/env" ] && source "/home/ulya/.cargo/env" # ghcup-env
+
+umask -S 077
