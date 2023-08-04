@@ -11,6 +11,15 @@ return {
         query = 'rainbow-parens',
         -- Highlight the entire buffer all at once
         strategy = require('ts-rainbow').strategy.global,
+        hlgroups = {
+          'TSRainbowBlue',
+          'TSRainbowYellow',
+          'TSRainbowOrange',
+          'TSRainbowGreen',
+          'TSRainbowViolet',
+          'TSRainbowCyan',
+          'TSRainbowRed',
+        }
       }
     }
   end,
