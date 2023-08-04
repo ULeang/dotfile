@@ -7,4 +7,4 @@ export MPD_HOST="$HOME/.config/mpd/socket"
 export EDITOR="nvim"
 
 # my script dir
-export PATH="$HOME/workspace/zsh.d/script:"$PATH
+export PATH="$HOME/.config/scripts:$PATH"
