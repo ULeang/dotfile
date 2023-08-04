@@ -1,0 +1,16 @@
+#!/usr/bin/zsh
+
+function backupAll() {
+  toBackup=(/btrfs_root/{@,@home})
+  for i ($toBackup) {
+    sudo btrfs subvolume snapshot -r $i /btrfs_root/snapshots/@$(basename $i)-$(date +%m%d%y-%H%M%S)
+  }
+}
+
+function deleteOutOfDate() {
+  timeLimit=2
+  sudo btrfs subvolume delete /btrfs_root/snapshots/@@*(m+$timeLimit)
+}
+
+backupAll
+deleteOutOfDate
