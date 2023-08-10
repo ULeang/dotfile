@@ -3,7 +3,7 @@
 function backupAll() {
   toBackup=(/btrfs_root/{@,@home})
   for i ($toBackup) {
-    sudo btrfs subvolume snapshot -r $i "/btrfs_root/snapshots/@$(basename $i)-$(date '+%F %T')"
+    sudo btrfs subvolume snapshot -r $i "/btrfs_root/snapshots/@$(basename $i)-$(date '+%F-%T')"
   }
 }
 
@@ -12,7 +12,8 @@ function deleteOutOfDate() {
   timestampNow=$(date '+%s')
   allSubs=(/btrfs_root/snapshots/@*)
   for i ($allSubs) {
-    ii=$(basename $i | grep -Eo '[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}' -)
+    # ii=$(basename $i | grep -Eo '[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}' -)
+    ii=$(basename $i | awk -F '[- :]' '{print $2 $3 $4" "$5":"$6":"$7}')
     timestampSub=$(date --date=$ii '+%s')
     if (($timestampNow-$timestampSub>$timeLimit)) {
       sudo btrfs subvolume delete $i
