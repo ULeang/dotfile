@@ -22,7 +22,7 @@ map("n", "<leader>nh", ":nohl<CR>", opt)
 
 map("n", "<S-L>", ":bnext<CR>", opt)
 map("n", "<S-H>", ":bprevious<CR>", opt)
-map("n", "<S-W>", ":bdelete | bp<CR>", opt)
+map("n", "<C-W>", ":bdelete | bp<CR>", opt)
 
 map("n", "<leader>fe", ":Neotree toggle<CR>", opt)
 map("t", "<C-n><C-n>", "<C-\\><C-n>", opt)
