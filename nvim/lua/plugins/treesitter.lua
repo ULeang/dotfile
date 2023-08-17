@@ -1,9 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  dependencies = "HiPhish/nvim-ts-rainbow2",
   config = function()
     require("nvim-treesitter.configs").setup{
-      ensure_installed = { "c", "lua", "cpp", "haskell", "bash", "python", "rust", "javascript",
-      "css", "cmake", "json", "markdown", "markdown_inline", "html", "regex", "perl", "verilog"},
+      ensure_installed = { "c", "lua", "cpp", "haskell", "bash", "python", "rust", "css", "cmake", "json", "markdown", "markdown_inline", "html", "perl"},
 
       highlight = { enable = true },
 
@@ -16,9 +16,27 @@ return {
           scope_incremental = '<TAB>',
         }
       },
-
       -- treesitter based code formatting (=)
       indent = { enable = true },
+
+      rainbow = {
+        enable = true,
+        -- list of languages you want to disable the plugin for
+        -- disable = { 'jsx', 'cpp' },
+        -- Which query to use for finding delimiters
+        query = 'rainbow-parens',
+        -- Highlight the entire buffer all at once
+        strategy = require('ts-rainbow').strategy.global,
+        hlgroups = {
+          'TSRainbowBlue',
+          'TSRainbowYellow',
+          'TSRainbowOrange',
+          'TSRainbowGreen',
+          'TSRainbowViolet',
+          'TSRainbowCyan',
+          'TSRainbowRed',
+        }
+      },
     }
   end,
 }
