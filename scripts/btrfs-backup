@@ -22,5 +22,11 @@ function deleteOutOfDate() {
   # sudo btrfs subvolume delete /btrfs_root/snapshots/@@*(m+$timeLimit)
 }
 
-backupAll
-deleteOutOfDate
+if [[ -d /btrfs_root/snapshots ]] {
+  backupAll
+  deleteOutOfDate
+} else {
+  mkdir /btrfs_root/snapshots
+  backupAll
+  deleteOutOfDate
+}
