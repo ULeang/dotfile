@@ -3,7 +3,7 @@
   "include": "~/.config/waybar/common.jsonc",
   "modules-left": [
     "clock",
-    "wlr/workspaces",
+    "hyprland/workspaces",
     "hyprland/window"
   ],
   "modules-center": [],
@@ -23,7 +23,7 @@
   "include": "~/.config/waybar/common.jsonc",
   "modules-left": [
     "clock",
-    "wlr/workspaces",
+    "hyprland/workspaces",
     "hyprland/window"
   ],
   "modules-center": [],
