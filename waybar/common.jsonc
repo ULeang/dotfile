@@ -11,7 +11,7 @@
         "format": "{}",
         "separate-outputs": true
     },
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "all-outputs": true,
         "on-click": "activate",
         "format": "{icon}",
@@ -24,7 +24,8 @@
             "urgent": "",
             "active": "",
             "default": ""
-          }
+          },
+        "show-special":"true"
     },
     "custom/updates": {
         "exec": "(paru -Qua) | wc -l",
@@ -114,7 +115,6 @@
       "on-double-click":"bluetoothctl connect B0:F1:A3:88:AF:F4"
       // "min-length": 4
     },
-    // cava not supported now
     "network": {
         "interval": "1",
         "format-wifi": "  {signalStrength}%",
@@ -125,4 +125,27 @@
         "tooltip-format": "{essid} - {ifname} via {gwaddr}\n  {bandwidthUpBytes}\n  {bandwidthDownBytes}",
         "on-click-right": "kitty nmtui"
     }
+    // cava not supported now
+//     "cava": {
+// //        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+//         "framerate": 30,
+//         "autosens": 1,
+//         "sensitivity": 100,
+//         "bars": 14,
+//         "lower_cutoff_freq": 50,
+//         "higher_cutoff_freq": 10000,
+//         "method": "pulse",
+//         "source": "auto",
+//         "stereo": true,
+//         "reverse": false,
+//         "bar_delimiter": 0,
+//         "monstercat": false,
+//         "waves": false,
+//         "noise_reduction": 0.77,
+//         "input_delay": 2,
+//         "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+//         "actions": {
+//                    "on-click-right": "mode"
+//                    }
+//     }
 }
