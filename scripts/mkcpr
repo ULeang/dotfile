@@ -1,0 +1,39 @@
+#!/usr/bin/zsh
+
+pwd=$(pwd)
+print -l "working directory: $pwd"
+
+if (( $#1 == 0 )) {
+  print -l "usage: mkcpr <projectname>" >&2
+  print -l "no project made"
+  exit 1
+}
+print -l "target projectname: $1"
+
+if [[ ! -w $pwd ]] {
+  print -l "error: cannot write at working directory" >&2
+  print -l "no project made"
+  exit 2
+}
+
+if [[ -e $1 ]] {
+  print -l "error: file '$1' already exists" >&2
+  print -l "no project made"
+  exit 3
+}
+
+mkdir $pwd/$1
+if (( $? != 0 )) {
+  print -l "unknown error occur" >&2
+  print -l "no project made"
+  exit 4
+}
+cp ~/.config/scripts/.clang-format $1 ||\
+if (( $? != 0 )) {
+  print -l "unknown error occur" >&2
+  print -l "no format config copyed"
+  exit 5
+}
+
+print -l "project $1 made"
+exit 0

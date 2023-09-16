@@ -16,3 +16,5 @@ alias nvp="cd ~/workspace/mcd/pyCodes/ && nv"
 alias nvh="cd ~/workspace/mcd/hsCodes/ && nv"
 alias nvs="cd ~/workspace/mcd/shCodes/ && nv"
 alias nvc="cd ~/workspace/mcd/xxCodes/ && nv"
+
+alias xx="cd ~/workspace/mcd/xxCodes"

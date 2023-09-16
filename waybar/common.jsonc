@@ -1,151 +1,176 @@
 {
-    "layer": "top",
-    "position": "top",
-    "mod": "dock",
-    "exclusive": true,
-    "passtrough": false,
-    "gtk-layer-shell": true,
-    "height": 0,
-    
-    "hyprland/window": {
-        "format": "{}",
-        "separate-outputs": true
+  "layer": "top",
+  "position": "top",
+  "mod": "dock",
+  "exclusive": true,
+  "passtrough": false,
+  "gtk-layer-shell": true,
+  "height": 0,
+
+  "hyprland/window": {
+    "format": "{}",
+    "rewrite": {
+      "(.*) — Mozilla Firefox": "󰈹 $1",
+      "(~|nv.*)": " [$1]"
     },
-    "hyprland/workspaces": {
-        "all-outputs": true,
-        "on-click": "activate",
-        "format": "{icon}",
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "urgent": "",
-            "active": "",
-            "default": ""
-          },
-        "show-special":"true"
+    "separate-outputs": true
+  },
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "on-click": "activate",
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "urgent": "",
+      "active": "",
+      "default": ""
     },
-    "custom/updates": {
-        "exec": "(paru -Qua) | wc -l",
-        "interval": 7200,
-        "format": "󰁪 {}"
-    },
-    "tray": {
-        "icon-size": 13,
-        "tooltip": false,
-        "spacing": 10
-    },
-    "clock": {
-        "format": "{:󱑏 %R  󰸘 %d/%m}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}",
-        "format-muted": "󰝟  Muted",
-        "on-click": "~/.config/scripts/volume --toggle",
-        "on-click-right": "pavucontrol",
-        "on-click-middle": "~/.config/scripts/volume --switch20",
-        "on-double-click-middle": "~/.config/scripts/volume --switch100",
-        "on-scroll-up": "~/.config/scripts/volume --inc",
-        "on-scroll-down": "~/.config/scripts/volume --dec",
-        // "min-length": 5,
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "󰋋",
-            "headset": "󰋋",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        }
-    },
-    "pulseaudio#microphone": {
-        "format": "{format_source}",
-        "format-source": " {volume}",
-        "format-source-muted": " Muted",
-        "on-click": "~/.config/scripts/volume --toggle-mic",
-        "on-click-right": "pavucontrol",
-        "on-scroll-up": "~/.config/scripts/volume --mic-inc",
-        "on-scroll-down": "~/.config/scripts/volume --mic-dec"
-        // "min-length": 5
-    },
-    "backlight": {
-      "device": "amdgpu_bl1",
-      "format": "{icon} {percent}",
-      "format-icons": ["󰃞", "󰃟", "󰃠"],
-      "on-scroll-up": "~/.config/scripts/brightness --inc",
-      "on-scroll-down": "~/.config/scripts/brightness --dec",
-      // "min-length": 5,
-      "tooltip-format": "eDP-1"
-    },
-    "backlight#external": {
-      "device": "ddcci23",
-      "format": "{icon} {percent}",
-      "format-icons": ["󰃞", "󰃟", "󰃠"],
-      "on-scroll-up": "~/.config/scripts/brightness_ex --inc",
-      "on-scroll-down": "~/.config/scripts/brightness_ex --dec",
-      "on-double-click": "~/.config/scripts/activate_ddcci --ract",
-      // "min-length": 5,
-      "tooltip-format": "DP-1"
-    },
-    "battery": {
-      "bat": "BAT0",
-      "format": "{icon} {capacity}",
-      "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-      "format-charging": " {capacity}%",
-      "format-plugged": " {capacity}%",
-      "states": {
-        "good": 95,
-        "warning": 30,
-        "critical": 20
+    "show-special":"true"
+  },
+  "custom/updates": {
+    "exec": "(paru -Qua) | wc -l",
+    "interval": 7200,
+    "format": "󰁪 {}"
+  },
+  "tray": {
+    "icon-size": 13,
+    "tooltip": false,
+    "spacing": 10
+  }, 
+  "clock": {
+    "format": " {:%H:%M}",
+    "format-alt": " {:%A, %B %d, %R}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode"          : "month",
+      "mode-mon-col"  : 3,
+      "weeks-pos"     : "right",
+      "on-scroll"     : 1,
+      "on-click-right": "mode",
+      "format": {
+        "months":     "<span color='#ffead3'><b>{}</b></span>",
+        "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+        "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
       }
     },
-    "bluetooth": {
-      "format": " {status}",
-      "format-disabled": "",
-      "format-connected": " {num_connections}",
-      "tooltip-format": "{device_alias}",
-      "tooltip-format-connected": " {device_enumerate}",
-      "tooltip-format-connected-battery": " {device_enumerate}",
-      "tooltip-format-enumerate-connected": "{device_alias}",
-      "tooltip-format-enumerate-connected-battery": "{device_alias} {device_battery_percentage}",
-      "on-click-right": "kitty bluetoothctl",
-      "on-double-click":"bluetoothctl connect B0:F1:A3:88:AF:F4"
-      // "min-length": 4
-    },
-    "network": {
-        "interval": "1",
-        "format-wifi": "  {signalStrength}%",
-        "format-ethernet": "󰱔 ",
-        "format-disconnected": "󰱟 ",
-        "format-linked": "{ifname} (No IP)",
-        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}",
-        "tooltip-format": "{essid} - {ifname} via {gwaddr}\n  {bandwidthUpBytes}\n  {bandwidthDownBytes}",
-        "on-click-right": "kitty nmtui"
+    "actions":  {
+      "on-click-right": "mode",
+      "on-click-forward": "tz_up",
+      "on-click-backward": "tz_down",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
     }
-    // cava not supported now
-//     "cava": {
-// //        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
-//         "framerate": 30,
-//         "autosens": 1,
-//         "sensitivity": 100,
-//         "bars": 14,
-//         "lower_cutoff_freq": 50,
-//         "higher_cutoff_freq": 10000,
-//         "method": "pulse",
-//         "source": "auto",
-//         "stereo": true,
-//         "reverse": false,
-//         "bar_delimiter": 0,
-//         "monstercat": false,
-//         "waves": false,
-//         "noise_reduction": 0.77,
-//         "input_delay": 2,
-//         "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
-//         "actions": {
-//                    "on-click-right": "mode"
-//                    }
-//     }
+  },
+  // "clock": {
+  //   "format": "{:󱑏 %R  󰸘 %d/%m}",
+  //   "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+  // },
+  "pulseaudio": {
+    "format": "{icon} {volume}",
+    "format-muted": "󰝟  Muted",
+    "on-click": "~/.config/scripts/volume --toggle",
+    "on-click-right": "pavucontrol",
+    "on-click-middle": "~/.config/scripts/volume --switch20",
+    "on-double-click-middle": "~/.config/scripts/volume --switch100",
+    "on-scroll-up": "~/.config/scripts/volume --inc",
+    "on-scroll-down": "~/.config/scripts/volume --dec",
+        // "min-length": 5,
+        "format-icons": {
+          "headphone": "󰋋",
+          "hands-free": "󰋋",
+          "headset": "󰋋",
+          "phone": "",
+          "portable": "",
+          "car": "",
+          "default": ["", "", ""]
+        }
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": " {volume}",
+    "format-source-muted": " Muted",
+    "on-click": "~/.config/scripts/volume --toggle-mic",
+    "on-click-right": "pavucontrol",
+    "on-scroll-up": "~/.config/scripts/volume --mic-inc",
+    "on-scroll-down": "~/.config/scripts/volume --mic-dec"
+        // "min-length": 5
+  },
+  "backlight": {
+    "device": "amdgpu_bl1",
+    "format": "{icon} {percent}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-scroll-up": "~/.config/scripts/brightness --inc",
+    "on-scroll-down": "~/.config/scripts/brightness --dec",
+      // "min-length": 5,
+      "tooltip-format": "eDP-1"
+  },
+  "backlight#external": {
+    "device": "ddcci23",
+    "format": "{icon} {percent}",
+    "format-icons": ["󰃞", "󰃟", "󰃠"],
+    "on-scroll-up": "~/.config/scripts/brightness_ex --inc",
+    "on-scroll-down": "~/.config/scripts/brightness_ex --dec",
+    "on-double-click": "~/.config/scripts/activate_ddcci --ract",
+      // "min-length": 5,
+      "tooltip-format": "DP-1"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "format": "{icon} {capacity}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 20
+    }
+  },
+  "bluetooth": {
+    "format": " {status}",
+    "format-disabled": "",
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{device_alias}",
+    "tooltip-format-connected": " {device_enumerate}",
+    "tooltip-format-connected-battery": " {device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-enumerate-connected-battery": "{device_alias} {device_battery_percentage}",
+    "on-click-right": "kitty bluetoothctl",
+    "on-double-click":"bluetoothctl connect B0:F1:A3:88:AF:F4"
+      // "min-length": 4
+  },
+  "network": {
+    "interval": "1",
+    "format-wifi": "{signalStrength}%",
+    "format-ethernet": "󰱔",
+    "format-disconnected": "󰱟",
+    "format-linked": "{ifname} (No IP)",
+    "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}",
+    "tooltip-format": "{essid} - {ifname} via {gwaddr}\n  {bandwidthUpBytes}\n  {bandwidthDownBytes}",
+    "on-click-right": "kitty nmtui"
+  },
+  "cpu": {
+    "interval": 1,
+    "format": "{icon0}{icon1}{icon2}{icon3}{icon4}{icon5}{icon6}{icon7}{icon8}{icon9}{icon10}{icon11}{icon12}{icon13}{icon14}{icon15}",
+    "format-icons": [
+      "<span color='#69ff94'>▁</span>", // green
+      "<span color='#2aa9ff'>▂</span>", // blue
+      "<span color='#f8f8f2'>▃</span>", // white
+      "<span color='#f8f8f2'>▄</span>", // white
+      "<span color='#ffffa5'>▅</span>", // yellow
+      "<span color='#ffffa5'>▆</span>", // yellow
+      "<span color='#ff9977'>▇</span>", // orange
+      "<span color='#dd532e'>█</span>"  // red
+    ]
+  },
+  "memory": {
+    "interval": 30,
+    "format": "{used:0.1f}G/{total:0.1f}G "
+  }
 }

@@ -60,6 +60,8 @@ tooltip {
 #workspaces,
 #tray,
 #bluetooth,
+#cpu,
+#memory,
 #backlight {
     background: #1e1e2e;
     padding-left: 7px;
