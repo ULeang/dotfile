@@ -50,7 +50,7 @@ elif [[ "$1" == "--mic-inc" ]]; then
 elif [[ "$1" == "--mic-dec" ]]; then
 	dec_mic_volume
 elif [[ "$1" == "--switch20" ]]; then
-  switch 20
+  switch 30
 elif [[ "$1" == "--switch100" ]]; then
   switch 100
 else
