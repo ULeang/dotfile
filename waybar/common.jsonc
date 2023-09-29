@@ -11,7 +11,7 @@
     "format": "{}",
     "rewrite": {
       "(.*) — Mozilla Firefox": "󰈹 $1",
-      "(~|nv.*)": " [$1]"
+      "(nv.*|(~|...)?(\/[^\/]+)+|~)": " [$1]"
     },
     "separate-outputs": true
   },

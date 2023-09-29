@@ -1,1 +1,3 @@
 set debuginfod enabled off
+set pagination off
+set auto-load safe-path /home/ulya/
