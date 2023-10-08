@@ -1,12 +1,33 @@
 # Use hjlk in menu selection (during completion)
 # Doesn't work well with interactive mode
 bindkey -v
+export KEYTIMEOUT=1
+
+# Change cursor shape for different vi modes.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'underline' ]]; then
+    echo -ne '\e[3 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    echo -ne "\e[3 q"
+}
+zle -N zle-line-init
+
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 
-bindkey 'jk' vi-cmd-mode
+# bindkey 'jk' vi-cmd-mode
+bindkey '^J' vi-cmd-mode
 bindkey '^A' beginning-of-line
 bindkey '^F' end-of-line
 bindkey '^K' up-line-or-history

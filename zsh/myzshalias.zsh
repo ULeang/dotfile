@@ -18,3 +18,5 @@ alias nvs="cd ~/workspace/mcd/shCodes/ && nv"
 alias nvc="cd ~/workspace/mcd/xxCodes/ && nv"
 
 alias xx="cd ~/workspace/mcd/xxCodes"
+
+alias getidf=". ~/esp/esp-idf/export.sh && source $ZDOTDIR/myzshalias.zsh"
