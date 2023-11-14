@@ -147,7 +147,7 @@
   },
   "network": {
     "interval": "1",
-    "format-wifi": "{signalStrength}%",
+    "format-wifi": " {signalStrength}%",
     "format-ethernet": "󰱔",
     "format-disconnected": "󰱟",
     "format-linked": "{ifname} (No IP)",
