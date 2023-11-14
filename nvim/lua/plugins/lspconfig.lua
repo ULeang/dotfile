@@ -2,13 +2,6 @@ return {
   "neovim/nvim-lspconfig",
   event = { "BufReadPre", "BufNewFile" },
   config = function()
-    require("lspconfig").pyright.setup{}
-    require("lspconfig").clangd.setup{
-      on_attach = function()
-      require("clangd_extensions.inlay_hints").setup_autocmd()
-      require("clangd_extensions.inlay_hints").set_inlay_hints()
-      end
-    }
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
     vim.keymap.set('n', '<space>ed', vim.diagnostic.open_float)
@@ -44,5 +37,12 @@ return {
         end, opts)
       end,
     })
+    require("lspconfig").pyright.setup{}
+    require("lspconfig").clangd.setup{
+      on_attach = function()
+        require("clangd_extensions.inlay_hints").setup_autocmd()
+        require("clangd_extensions.inlay_hints").set_inlay_hints()
+      end
+    }
   end
 }

@@ -1,26 +1,18 @@
-TARGETD=.
-HEADERD=.
-SRCD=.
-BUILDD=.
-DEPD=.
+BINDIR=.
+INCLUDEDIR=./header
+SRCDIR=./src
+BUILDDIR=./build
 
-TARGETS=
+TARGET=sample
 CROSSCOMPILE=
 CFLAGS=-O0 -g -Wall
 CPPFLAGS=
 ASFLAGS=
 LDFLAGS=
 
-INCFLAGS=-I$(HEADERD)
+INCFLAGS=-I$(INCLUDEDIR)
 
 CFLAGS+=$(INCFLAGS)
-
-vpath %.h $(HEADERD)
-vpath %.c $(SRCD)
-vpath %.S $(SRCD)
-vpath %.o $(BUILDD)
-vpath %.d $(DEPD)
-vpath %   $(TARGETD)
 
 CC=$(CROSSCOMPILE)gcc
 AS=$(CROSSCOMPILE)as
@@ -29,40 +21,46 @@ GDB=$(CROSSCOMPILE)gdb
 OBJDUMP=$(CROSSCOMPILE)objdump
 OBJCOPY=$(CROSSCOMPILE)objcopy
 
-SRCS_C=$(notdir $(wildcard $(SRCD)/*.c))
-SRCS_ASM=$(notdir $(wildcard $(SRCD)/*.S))
-OBJS=$(patsubst %.c,%.o,$(SRCS_C))
-OBJS+=$(patsubst %.S,%.o,$(SRCS_ASM))
-DEPS=$(patsubst %.o,%.d,$(OBJS))
+BINTARGET=$(addprefix $(BINDIR)/,$(TARGET))
+SRCS_C=$(wildcard $(SRCDIR)/*.c)
+SRCS_ASM=$(wildcard $(SRCDIR)/*.S)
+OBJS=$(patsubst %.c,$(BUILDDIR)/%.o,$(notdir $(SRCS_C)))
+OBJS+=$(patsubst %.S,$(BUILDDIR)/%.o,$(notdir $(SRCS_ASM)))
+DEPS=$(patsubst %.c,$(BUILDDIR)/%.d,$(notdir $(SRCS_C)))
+DEPS+=$(patsubst %.S,$(BUILDDIR)/%.d,$(notdir $(SRCS_ASM)))
 
 .PHONY: all
-all: $(TARGETS)
-	@echo 'Done'
+all: $(BINTARGET)
 
-$(TARGETS): $(OBJS)
-	@$(CC) -o $(TARGETD)/$@ $(addprefix $(BUILDD)/,$^) $(CPPFLAGS) $(CFLAGS)
+$(BINTARGET): $(OBJS)
+	@$(CC) -o $@ $^ $(CPPFLAGS) $(CFLAGS)
 
-%.o: %.c
-	@$(CC) -o $(BUILDD)/$@ -c $< $(CPPFLAGS) $(CFLAGS)
+$(BUILDDIR)/%.o: $(SRCDIR)/%.c
+	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
+$(BUILDDIR)/%.o: $(SRCDIR)/%.S
+	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
 
-%.o: %.S
-	@$(CC) -o $(BUILDD)/$@ -c $< $(CPPFLAGS) $(CFLAGS)
+$(BUILDDIR)/%.d: $(SRCDIR)/%.c
+	@set -e; rm -f $@; \
+	 $(CC) -MM -MF $@.$$$$ $< $(CFLAGS); \
+	 sed 's,\($*\.o\)[ :]*,$(BUILDDIR)/\1 $@ : ,g' < $@.$$$$ > $@; \
+	 rm -f $@.$$$$
+$(BUILDDIR)/%.d: $(SRCDIR)/%.S
+	@set -e; rm -f $@; \
+	 $(CC) -MM -MF $@.$$$$ $< $(CFLAGS); \
+	 sed 's,\($*\.o\)[ :]*,$(BUILDDIR)/\1 $@ : ,g' < $@.$$$$ > $@; \
+	 rm -f $@.$$$$
 
-%.d: %.c
-	@set -e; rm -f $(DEPD)/$@; \
-	 $(CC) -MM -MF $(DEPD)/$@.$$$$ $< $(CFLAGS); \
-	 sed 's,\($*\.o\)[ :]*,\1 $@ : ,g' < $(DEPD)/$@.$$$$ > $(DEPD)/$@; \
-	 rm -f $(DEPD)/$@.$$$$
+.PHONY: run
+run: all
+	@./$(BINTARGET)
 
-%.d: %.S
-	@set -e; rm -f $(DEPD)/$@; \
-	 $(CC) -MM -MF $(DEPD)/$@.$$$$ $< $(CFLAGS); \
-	 sed 's,\($*\.o\)[ :]*,\1 $@ : ,g' < $(DEPD)/$@.$$$$ > $(DEPD)/$@; \
-	 rm -f $(DEPD)/$@.$$$$
+.PHONY: debug
+debug: all
+	@$(GDB) $(BINTARGET) -q
 
 .PHONY: clean
 clean:
-	@rm -f $(addprefix $(TARGETD)/,$(TARGETS)) $(addprefix $(BUILDD)/,$(OBJS)) $(addprefix $(DEPD)/,$(DEPS))
-	@echo 'Done'
+	@rm -f $(BINTARGET) $(OBJS) $(DEPS)
 
 -include $(DEPS)

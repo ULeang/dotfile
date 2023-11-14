@@ -44,7 +44,7 @@ return {
       dashboard.button("n", "  New",  ":ene <BAR> startinsert <CR>"),
       dashboard.button("f", "  File", ":Telescope find_files <CR>"),
       dashboard.button("o", "  Old",  ":Telescope oldfiles <CR>"),
-      dashboard.button("s", "  Sett", ":cd ~/.config/nvim | :Neotree toggle <CR>"),
+      dashboard.button("s", "  Sett", ":cd ~/.config/nvim | :Neotree focus source=filesystem position=float toggle<CR>"),
       -- dashboard.button("s", "  Sett", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
       dashboard.button("q", "  Quit", ":qa<CR>"),
       -- dashboard.button( "f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),

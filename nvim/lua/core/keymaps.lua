@@ -24,7 +24,7 @@ map("n", "<S-L>", ":bnext<CR>", opt)
 map("n", "<S-H>", ":bprevious<CR>", opt)
 map("n", "<C-W>", ":bdelete | bp<CR>", opt)
 
-map("n", "<leader>fe", ":Neotree toggle<CR>", opt)
+map("n", "<leader>fe", ":Neotree focus source=filesystem position=float toggle<CR>", opt)
 map("t", "<C-n><C-n>", "<C-\\><C-n>", opt)
 
 map("n","<leader>gg","gg=GGzz", opt)
