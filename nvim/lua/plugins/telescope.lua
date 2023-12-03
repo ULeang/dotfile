@@ -4,12 +4,20 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local map = vim.keymap.set
-    local opt = {noremap = true,silent = true}
+    local opt = { noremap = true, silent = true }
     local builtin = require('telescope.builtin')
-    map('n', '<leader>ff', builtin.find_files, opt)
-    map('n', '<leader>fg', builtin.live_grep, opt)
-    map('n', '<leader>fb', builtin.buffers, opt)
-    map('n', '<leader>fh', builtin.help_tags, opt)
-    map("n", "<leader>fr", builtin.oldfiles, opt)
+    local wk = require("which-key")
+    wk.register({
+      ["<leader>"] = {
+        f = {
+          name = "+telescope",
+          f = { builtin.find_files, "Find Files" },
+          g = { builtin.live_grep, "Live Grep" },
+          b = { builtin.buffers, "Buffers" },
+          h = { builtin.help_tags, "Help Tags" },
+          r = { builtin.oldfiles, "Old Files" },
+        },
+      },
+    }, opt)
   end,
 }

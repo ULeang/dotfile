@@ -54,7 +54,6 @@ return {
 
     dashboard.section.footer.val = {
       "              ",
-      "              ",
       "    -ULya-    ",
       "λkoishi kawaii",
       "λFrom Gensokyo",

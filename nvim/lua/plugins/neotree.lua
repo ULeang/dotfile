@@ -5,27 +5,14 @@ return {
     "nvim-lua/plenary.nvim",
     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
     "MunifTanjim/nui.nvim",
-    {
-      's1n7ax/nvim-window-picker',
-      version = '2.*',
-      config = function()
-        require 'window-picker'.setup({
-          filter_rules = {
-            include_current_win = false,
-            autoselect_one = true,
-            -- filter using buffer options
-            bo = {
-              -- if the file type is one of following, the window will be ignored
-              filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-              -- if the buffer type is one of following, the window will be ignored
-              buftype = { 'terminal', "quickfix" },
-            },
-          },
-        })
-      end,
-    },
+    "s1n7ax/nvim-window-picker",
   },
   config = function ()
+    local wk = require("which-key")
+    wk.register({
+      ["<leader>fe"] = { "<cmd>Neotree focus filesystem float toggle reveal<cr>", "Neotree float" },
+      ["\\"] = { "<cmd>Neotree focus filesystem left toggle reveal<cr>", "Neotree side" },
+    })
     -- If you want icons for diagnostic errors, you'll need to define them somewhere:
     vim.fn.sign_define("DiagnosticSignError",
       {text = " ", texthl = "DiagnosticSignError"})
@@ -37,6 +24,10 @@ return {
       {text = "󰌵", texthl = "DiagnosticSignHint"})
 
     require("neo-tree").setup({
+      source_selector = {
+        winbar = false,
+        statusline = false,
+      },
       close_if_last_window = false, -- Close Neo-tree if it is the last window left in the tab
       popup_border_style = "rounded",
       enable_git_status = true,
@@ -219,7 +210,7 @@ return {
           leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
         },
         group_empty_dirs = false, -- when true, empty folders will be grouped together
-        hijack_netrw_behavior = "open_default", -- netrw disabled, opening a directory opens neo-tree
+        hijack_netrw_behavior = "open_current", -- netrw disabled, opening a directory opens neo-tree
         -- in whatever position is specified in window.position
         -- "open_current",  -- netrw disabled, opening a directory opens within the
         -- window like netrw would, regardless of window.position
@@ -240,7 +231,7 @@ return {
             ["<c-x>"] = "clear_filter",
             ["[g"] = "prev_git_modified",
             ["]g"] = "next_git_modified",
-            ["?"] = { "show_help", nowait=false, config = { title = "Order by", prefix_key = "o" }},
+            ["?"] = "show_help",
           },
           fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode
             ["<down>"] = "move_cursor_down",
@@ -285,7 +276,5 @@ return {
         }
       }
     })
-
-    vim.cmd([[nnoremap \ :Neotree reveal<cr>]])
   end
 }
