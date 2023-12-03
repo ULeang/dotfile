@@ -50,8 +50,8 @@ $env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 # The prompt indicators are environmental variables that represent
 # the state of the prompt
 $env.PROMPT_INDICATOR = {|| "> " }
-$env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
-$env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
+$env.PROMPT_INDICATOR_VI_INSERT = {|| " " }
+$env.PROMPT_INDICATOR_VI_NORMAL = {|| ":" }
 $env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
 
 # If you want previously entered commands to have a different prompt from the usual one,
@@ -95,16 +95,18 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-$env.PATH = ($env.PATH | split row (char esep) | append '/home/ulya/.config/scripts')
-$env.PATH = ($env.PATH | split row (char esep) | append '/home/ulya/.ghcup/bin')
-$env.PATH = ($env.PATH | split row (char esep) | append '/home/ulya/.cabal/bin')
+let my_path = [$"($env.HOME)/.config/scripts", $"($env.HOME)/.ghcup/bin", $"($env.HOME)/.cabal/bin", $"($env.HOME)/.cargo/bin"]
+$env.PATH = ($my_path | reduce --fold $env.PATH { |it,acc| if $it in $acc {$acc} else { $acc | append $it }} )
 
 $env.LS_COLORS = (vivid generate snazzy | str trim)
+$env.EDITOR = nvim
+$env.VISUAL = nvim
+$env.MPD_HOST = $"($env.HOME)/.config/mpd/socket"
 
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
 
-zoxide init nushell | save -f ~/.zoxide.nu
+# zoxide init nushell | save -f ~/.zoxide.nu
 
 mkdir ~/.cache/carapace
 carapace _carapace nushell | save --force ~/.cache/carapace/init.nu

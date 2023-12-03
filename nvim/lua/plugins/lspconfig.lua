@@ -4,10 +4,13 @@ return {
   config = function()
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    vim.keymap.set('n', '<space>ed', vim.diagnostic.open_float)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+    local wk = require("which-key")
+    wk.register({
+      ["<leader>ed"] = { vim.diagnostic.open_float, "Diagnostic" },
+      ["[d"] = { vim.diagnostic.goto_prev, "Prev" },
+      ["]d"] = { vim.diagnostic.goto_next, "Next" },
+      ["<leader>q"] = { vim.diagnostic.setloclist, "setloclist" },
+    })
 
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
@@ -18,23 +21,34 @@ return {
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', 'gk', vim.lsp.buf.signature_help, opts)
-        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-        vim.keymap.set('n', '<space>wl', function()
-          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-        end, opts)
-        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<space>ft', function()
-          vim.lsp.buf.format { async = true }
-        end, opts)
+        wk.register({
+          ["g"] = {
+            D = { vim.lsp.buf.declaration, "Declaration" },
+            d = { vim.lsp.buf.definition, "Definition" },
+            i = { vim.lsp.buf.implementation, "Implementation" },
+            k = { vim.lsp.buf.signature_help, "Signature Help" },
+            r = { vim.lsp.buf.references, "References" },
+          },
+          ["<leader>"] = {
+            w = {
+              name = "workspace",
+              a = { vim.lsp.buf.add_workspace_folder, "Add Folder" },
+              r = { vim.lsp.buf.remove_workspace_folder, "Remove Folder" },
+              l = { function()
+                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+              end, "List Folder" },
+            },
+            D = { vim.lsp.buf.type_definition, "Type Definition" },
+            K = { vim.lsp.buf.hover, "Man" },
+          },
+          ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
+          ["<leader>ft"] = { function()
+            vim.lsp.buf.format { async = true }
+          end, "Format" },
+        }, opts)
+        wk.register({
+          ["<leader>ca"] = { vim.lsp.buf.code_action, "Code Action" },
+        },{ buffer = ev.buf, mode = { "n", "v" } })
       end,
     })
     require("lspconfig").pyright.setup{}

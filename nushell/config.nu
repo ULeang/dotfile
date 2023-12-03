@@ -46,7 +46,7 @@ let dark_theme = {
     shape_flag: blue_bold
     shape_float: purple_bold
     # shapes are used to change the cli syntax highlighting
-    shape_garbage: { fg: white bg: red attr: b}
+    shape_garbage: { fg: black bg: light_cyan attr: b}
     shape_globpattern: cyan_bold
     shape_int: purple_bold
     shape_internalcall: cyan_bold
@@ -216,7 +216,7 @@ $env.config = {
     }
 
     filesize: {
-        metric: true # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
+        metric: false # true => KB, MB, GB (ISO standard), false => KiB, MiB, GiB (Windows standard)
         format: "auto" # b, kb, kib, mb, mib, gb, gib, tb, tib, pb, pib, eb, eib, auto
     }
 
@@ -570,7 +570,7 @@ $env.config = {
             event: {edit: delete}
         }
         {
-            name: delete_one_character_forward
+            name: delete_one_character_backward
             modifier: control
             keycode: char_h
             mode: [emacs, vi_insert]
@@ -595,7 +595,7 @@ $env.config = {
             modifier: control
             keycode: char_m
             mode: [emacs, vi_insert, vi_normal]
-            event: {send: enter}
+            event: {send: submitornewline}
         }
         {
             name: move_down
@@ -648,4 +648,4 @@ source ~/.zoxide.nu
 
 source ~/.cache/carapace/init.nu
 
-source /home/ulya/.config/nushell/myalias.nu
+use ~/.config/nushell/myalias.nu *

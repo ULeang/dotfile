@@ -1,19 +1,19 @@
-alias nv = nvim
+export alias nv = nvim
 
-alias l = lsd
-alias la = lsd -a
-alias ll = lsd -l
-alias lal = lsd -al
-alias lt = lsd --tree
-alias ga = git add
-alias gc = git commit
-alias gl = git log
-alias gs = git status
-alias grep = ripgrep
-alias cat = bat
+export alias l = lsd
+export alias la = lsd -a
+export alias ll = lsd -l
+export alias lal = lsd -al
+export alias lt = lsd --tree
+export alias ga = git add
+export alias gc = git commit
+export alias gl = git log
+export alias gs = git status
+export alias grep = ripgrep
+export alias cat = bat
 
-alias xx = cd ~/workspace/mcd/xxCodes
-alias rs = cd ~/workspace/mcd/rsCodes
-alias hs = cd ~/workspace/mcd/hsCodes
+export alias xx = cd ~/workspace/mcd/xxCodes
+export alias rs = cd ~/workspace/mcd/rsCodes
+export alias hs = cd ~/workspace/mcd/hsCodes
 
-alias make = make -j16
+export alias make = make -j16

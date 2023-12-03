@@ -1,9 +1,26 @@
-return {
+return {{
   "nvim-treesitter/nvim-treesitter",
-  -- dependencies = "HiPhish/nvim-ts-rainbow2",
   config = function()
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    parser_config.hypr = {
+      install_info = {
+        url = "https://github.com/luckasRanarison/tree-sitter-hypr",
+        files = { "src/parser.c" },
+        branch = "master",
+      },
+      filetype = "hypr",
+    }
+    parser_config.nu = {
+      install_info = {
+        url = "https://github.com/nushell/tree-sitter-nu",
+        files = { "src/parser.c" },
+        branch = "main",
+      },
+      filetype = "nu",
+    }
     require("nvim-treesitter.configs").setup{
-      ensure_installed = { "c", "lua", "cpp", "haskell", "bash", "python", "rust", "css", "cmake", "json", "markdown", "markdown_inline", "html", "perl", "latex"},
+      ensure_installed = { "c", "lua", "cpp", "haskell", "bash", "python", "rust", "css",
+        "cmake", "json", "markdown", "markdown_inline", "html", "perl", "latex", "hypr", "nu"},
 
       highlight = { enable = true },
 
@@ -20,4 +37,5 @@ return {
       indent = { enable = true },
     }
   end,
-}
+},
+  { "luckasRanarison/tree-sitter-hypr" }}

@@ -68,14 +68,14 @@ tooltip {
     padding-right: 7px;
     padding-top: 3px;
     padding-bottom: 3px;
-    margin-top: 5px;
+    margin-top: 10px;
     color: #cdd6f4;
     /* border: 1px solid #181825; */
 }
 
 #clock {
     padding-left:10px;
-    margin-left: 5px;
+    margin-left: 15px;
     border-radius: 5px 0 0 5px;
 }
 
@@ -121,7 +121,7 @@ tooltip {
 #battery {
     /* color: #a6e3a1; */
     padding-right: 10px;
-    margin-right: 5px;
+    margin-right: 15px;
     border-radius: 0 5px 5px 0;
 }
 

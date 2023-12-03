@@ -11,10 +11,11 @@ return {
     rt.setup{
       server = {
         on_attach = function(_, bufnr)
-          -- Hover actions
-          vim.keymap.set("n", "<C-h>", rt.hover_actions.hover_actions, { buffer = bufnr })
-          -- Code action groups
-          vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+          local wk = require("which-key")
+          wk.register({
+            ["<leader>a"] = { rt.code_action_group.code_action_group, "Code Action Group - Rust" },
+            ["<C-h>"] = { rt.hover_actions.hover_actions, "Hover Action - Rust" },
+          }, { buffer = bufnr})
         end,
       },
     }

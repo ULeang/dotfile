@@ -1,32 +1,38 @@
-#!/usr/bin/zsh
+#!/usr/bin/nu
+# vim: ft=nu
 
-function backupAll() {
-  toBackup=(/btrfs-root/{@,@home})
-  for i ($toBackup) {
-    sudo btrfs subvolume snapshot -r $i "/btrfs-root/snapshots/@$(basename $i)-$(date '+%F-%T')"
-  }
+let tobackup = [@, @home]
+
+def backup [name: string] {
+  let src = $name | str replace -r '^' '/btrfs-root/'
+  let dater = date now | date to-record
+  let datef = $dater | get year month day | str join '-'
+  let dates = $dater | get hour minute second | str join ':'
+  let date = $"($datef)T($dates)"
+  let dest = $name | each { |s| '/btrfs-root/snapshots/@' + $s + '-' + $date}
+  sudo btrfs subvolume snapshot -r $src $dest
 }
 
-function deleteOutOfDate() {
-  timeLimit=259200 # 3days
-  timestampNow=$(date '+%s')
-  allSubs=(/btrfs-root/snapshots/@*)
-  for i ($allSubs) {
-    # ii=$(basename $i | grep -Eo '[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2} [[:digit:]]{2}:[[:digit:]]{2}:[[:digit:]]{2}' -)
-    ii=$(basename $i | awk -F '[- :]' '{print $2 $3 $4" "$5":"$6":"$7}')
-    timestampSub=$(date --date=$ii '+%s')
-    if (($timestampNow-$timestampSub>$timeLimit)) {
-      sudo btrfs subvolume delete $i
-    }
-  }
-  # sudo btrfs subvolume delete /btrfs-root/snapshots/@@*(m+$timeLimit)
+def deleteOutOfDate [] {
+  let datenow = date now | into int
+  let tocheck = ls /btrfs-root/snapshots | get name
+  let dateold = $tocheck | str replace -r '^.*@@[[:alnum:]]*-' ''
+  let todelete = $dateold | enumerate | where $datenow - ($it.item | into datetime | into int) > 259200000000000
+  $todelete | each { |it| sudo btrfs subvolume delete ($tocheck | get $it.index) }
 }
 
-if [[ -d /btrfs-root/snapshots ]] {
-  backupAll
-  deleteOutOfDate
-} else {
+def main [
+  --backup (-b)
+  --clean (-c)
+] {
   mkdir /btrfs-root/snapshots
-  backupAll
-  deleteOutOfDate
+  if $backup and (not $clean) {
+    $tobackup | each { |x| backup $x }
+  } else if (not $backup) and $clean {
+    deleteOutOfDate
+  } else {
+    deleteOutOfDate
+    $tobackup | each { |x| backup $x }
+  }
+  null
 }
