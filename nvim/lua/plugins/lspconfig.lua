@@ -34,17 +34,13 @@ return {
               name = "workspace",
               a = { vim.lsp.buf.add_workspace_folder, "Add Folder" },
               r = { vim.lsp.buf.remove_workspace_folder, "Remove Folder" },
-              l = { function()
-                print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-              end, "List Folder" },
+              l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List Folder" },
             },
             D = { vim.lsp.buf.type_definition, "Type Definition" },
             K = { vim.lsp.buf.hover, "Man" },
           },
           ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
-          ["<leader>ft"] = { function()
-            vim.lsp.buf.format { async = true }
-          end, "Format" },
+          ["<leader>ft"] = { function() vim.lsp.buf.format { async = true } end, "Format" },
         }, opts)
         wk.register({
           ["<leader>ca"] = { vim.lsp.buf.code_action, "Code Action" },
