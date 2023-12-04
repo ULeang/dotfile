@@ -15,7 +15,7 @@ set.smartcase = true
 
 set.mouse = "a"
 
-set.tabstop = 2
+set.tabstop = 8
 set.softtabstop = 2
 set.shiftwidth = 2
 set.expandtab = true
@@ -25,7 +25,7 @@ set.splitright = true
 
 set.termguicolors = true
 
-set.wrap = false
+set.wrap = true
 set.wrapscan = false
 
 set.signcolumn = "yes"

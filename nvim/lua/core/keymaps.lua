@@ -20,11 +20,10 @@ map("n", "<leader>sh", ":split<CR>", opt)
 
 map("n", "<leader>nh", ":nohl<CR>", opt)
 
-map("n", "<S-L>", ":bnext<CR>", opt)
-map("n", "<S-H>", ":bprevious<CR>", opt)
-map("n", "<C-W>", ":bdelete<CR>", opt)
+-- map("n", "<S-L>", ":bnext<CR>", opt)
+-- map("n", "<S-H>", ":bprevious<CR>", opt)
+-- map("n", "<C-W>", ":bdelete<CR>", opt)
 
 map("t", "<C-n><C-n>", "<C-\\><C-n>", opt)
 
-map("n","<leader>gg","gg=GGzz", opt)
-map("n","<leader>o",":SymbolsOutline<CR>", opt)
+map("n","<leader>gg","gg=Gzz", opt)

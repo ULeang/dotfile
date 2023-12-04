@@ -1,5 +1,12 @@
 return {{
   "nvim-treesitter/nvim-treesitter",
+  build = ":TSUpdate",
+  event = "VeryLazy",
+  keys = {
+    { "<CR>", desc = "Increment Selection" },
+    { "<BS>", desc = "Decrement Selection" },
+    { "<TAB>", desc = "Increment - Scope" },
+  },
   config = function()
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
     parser_config.hypr = {
@@ -20,7 +27,8 @@ return {{
     }
     require("nvim-treesitter.configs").setup{
       ensure_installed = { "c", "lua", "cpp", "haskell", "bash", "python", "rust", "css",
-        "cmake", "json", "markdown", "markdown_inline", "html", "perl", "latex", "hypr", "nu"},
+        "cmake", "json", "markdown", "markdown_inline", "html", "perl", "latex", "hypr",
+        "nu", "vim", "vimdoc", "diff", "regex", "toml" },
 
       highlight = { enable = true },
 

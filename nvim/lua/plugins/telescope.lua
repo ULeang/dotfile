@@ -3,14 +3,13 @@ return {
   event = "VeryLazy",
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
-    local map = vim.keymap.set
     local opt = { noremap = true, silent = true }
     local builtin = require('telescope.builtin')
     local wk = require("which-key")
     wk.register({
       ["<leader>"] = {
         f = {
-          name = "+telescope",
+          name = "Telescope",
           f = { builtin.find_files, "Find Files" },
           g = { builtin.live_grep, "Live Grep" },
           b = { builtin.buffers, "Buffers" },
