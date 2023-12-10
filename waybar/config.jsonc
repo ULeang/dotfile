@@ -2,21 +2,23 @@
   "output": "eDP-1",
   "include": "~/.config/waybar/common.jsonc",
   "modules-left": [
-    "clock",
     "hyprland/workspaces",
     "hyprland/window"
   ],
-  "modules-center": [],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
     "tray",
     "custom/updates",
-    "cpu",
+    // "cpu",
     "memory",
     "network",
     "bluetooth",
     "backlight",
-    "pulseaudio",
-    "pulseaudio#microphone",
+    "wireplumber",
+    // "pulseaudio",
+    // "pulseaudio#microphone",
     "battery"
   ]
 },
@@ -24,11 +26,12 @@
   "output": "DP-1",
   "include": "~/.config/waybar/common.jsonc",
   "modules-left": [
-    "clock",
     "hyprland/workspaces",
     "hyprland/window"
   ],
-  "modules-center": [],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
     "tray",
     "custom/updates",
@@ -36,9 +39,11 @@
     "memory",
     "network",
     "bluetooth",
-    "backlight#external",
-    "pulseaudio",
-    "pulseaudio#microphone",
+    "custom/backlightex",
+    // "backlight#external",
+    "wireplumber",
+    // "pulseaudio",
+    // "pulseaudio#microphone",
     "battery"
   ]
 }
