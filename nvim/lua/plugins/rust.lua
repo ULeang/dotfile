@@ -7,11 +7,25 @@ return {
       -- Debugging
       'mfussenegger/nvim-dap',
       'nvim-lua/plenary.nvim',
-      "simrat39/symbols-outline.nvim",
     },
     config = function()
+      local M = {
+        execute_command = function(command, args, cwd)
+          local utils = require('rust-tools.utils.utils')
+          local full_comand = utils.chain_commands({
+            utils.make_command_from_args("cd", {cwd}),
+            utils.make_command_from_args(command, args),
+          })
+          vim.cmd([[FloatermNew --autoclose=0 ]] .. full_comand)
+        end
+      }
+
       local rt = require("rust-tools")
       rt.setup{
+        tools = {
+          -- executor = require('rust-tools.executors').termopen,
+          executor = M,
+        },
         server = {
           on_attach = function(_, bufnr)
             local wk = require("which-key")

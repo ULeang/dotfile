@@ -8,16 +8,16 @@
   "height": 0,
 
   "hyprland/window": {
-    "format": "{}",
+    "format": "{title}",
     "rewrite": {
       "(.*) — Mozilla Firefox": "󰈹 $1",
-      // "(nv.*|(~|...)?(\/[^\/]+)+|~)": " [$1]",
       "(nu)": " [$1]"
     },
     "separate-outputs": true
   },
   "hyprland/workspaces": {
     "all-outputs": true,
+    "show-special": true,
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
@@ -28,9 +28,9 @@
       "5": "",
       "urgent": "",
       "active": "",
+      "special": "",
       "default": ""
-    },
-    "show-special":"true"
+    }
   },
   "custom/updates": {
     "exec": "(paru -Qua) | wc -l",
@@ -43,8 +43,8 @@
     "spacing": 10
   }, 
   "clock": {
-    "format": " {:%H:%M}",
-    "format-alt": " {:%A, %B %d, %R}",
+    "format": "{:%A, %B %d, %R}",
+    "format-alt": "{:%H:%M}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode"          : "month",
@@ -68,59 +68,79 @@
       "on-scroll-down": "shift_down"
     }
   },
-  // "clock": {
-  //   "format": "{:󱑏 %R  󰸘 %d/%m}",
-  //   "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
-  // },
-  "pulseaudio": {
+  "wireplumber": {
     "format": "{icon} {volume}",
-    "format-muted": "󰝟  Muted",
+    "format-icons": ["", "", ""],
+    "format-muted": "󰝟 Muted",
     "on-click": "~/.config/scripts/volume --toggle",
+    "on-click-middle": "helvum",
     "on-click-right": "pavucontrol",
-    "on-click-middle": "~/.config/scripts/volume --switch20",
-    "on-double-click-middle": "~/.config/scripts/volume --switch100",
-    "on-scroll-up": "~/.config/scripts/volume --inc",
-    "on-scroll-down": "~/.config/scripts/volume --dec",
-        // "min-length": 5,
-        "format-icons": {
-          "headphone": "󰋋",
-          "hands-free": "󰋋",
-          "headset": "󰋋",
-          "phone": "",
-          "portable": "",
-          "car": "",
-          "default": ["", "", ""]
-        }
+    "scroll-step": 2.0,
+    "tooltip": true,
+    "tooltip-format": "{node_name}"
   },
-  "pulseaudio#microphone": {
-    "format": "{format_source}",
-    "format-source": " {volume}",
-    "format-source-muted": " Muted",
-    "on-click": "~/.config/scripts/volume --toggle-mic",
-    "on-click-right": "pavucontrol",
-    "on-scroll-up": "~/.config/scripts/volume --mic-inc",
-    "on-scroll-down": "~/.config/scripts/volume --mic-dec"
-        // "min-length": 5
-  },
+  // "pulseaudio": {
+  //   "format": "{icon} {volume}",
+  //   "format-muted": "󰝟  Muted",
+  //   "on-click": "~/.config/scripts/volume --toggle",
+  //   "on-click-right": "pavucontrol",
+  //   "on-click-middle": "~/.config/scripts/volume --switch20",
+  //   "on-double-click-middle": "~/.config/scripts/volume --switch100",
+  //   "on-scroll-up": "~/.config/scripts/volume --inc",
+  //   "on-scroll-down": "~/.config/scripts/volume --dec",
+  //       // "min-length": 5,
+  //       "format-icons": {
+  //         "headphone": "󰋋",
+  //         "hands-free": "󰋋",
+  //         "headset": "󰋋",
+  //         "phone": "",
+  //         "portable": "",
+  //         "car": "",
+  //         "default": ["", "", ""]
+  //       }
+  // },
+  // "pulseaudio#microphone": {
+  //   "format": "{format_source}",
+  //   "format-source": " {volume}",
+  //   "format-source-muted": " Muted",
+  //   "on-click": "~/.config/scripts/volume --toggle-mic",
+  //   "on-click-right": "pavucontrol",
+  //   "on-scroll-up": "~/.config/scripts/volume --mic-inc",
+  //   "on-scroll-down": "~/.config/scripts/volume --mic-dec"
+  //       // "min-length": 5
+  // },
   "backlight": {
     "device": "amdgpu_bl1",
     "format": "{icon} {percent}",
     "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-up": "~/.config/scripts/brightness --inc",
-    "on-scroll-down": "~/.config/scripts/brightness --dec",
+    "scroll-step": 10.0,
+    // "on-scroll-up": "~/.config/scripts/brightness --inc",
+    // "on-scroll-down": "~/.config/scripts/brightness --dec",
       // "min-length": 5,
       "tooltip-format": "eDP-1"
   },
-  "backlight#external": {
-    "device": "ddcci23",
-    "format": "{icon} {percent}",
+  "custom/backlightex": {
+    "exec": "~/.config/scripts/backlight_ex get",
+    // "exec-on-event": true,
+    "signal": 8,
+    // "interval": 1,
+    "return-type": "json",
+    "format": "{icon} {percentage}",
     "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-up": "~/.config/scripts/brightness_ex --inc",
-    "on-scroll-down": "~/.config/scripts/brightness_ex --dec",
-    "on-double-click": "~/.config/scripts/activate_ddcci --ract",
-      // "min-length": 5,
-      "tooltip-format": "DP-1"
+    "on-scroll-up": "~/.config/scripts/backlight_ex inc",
+    "on-scroll-down": "~/.config/scripts/backlight_ex dec",
+    "tooltip": false
   },
+  // "backlight#external": {
+  //   "device": "ddcci6",
+  //   "format": "{icon} {percent}",
+  //   "format-icons": ["󰃞", "󰃟", "󰃠"],
+  //   "on-scroll-up": "~/.config/scripts/brightness_ex --inc",
+  //   "on-scroll-down": "~/.config/scripts/brightness_ex --dec",
+  //   "on-double-click": "~/.config/scripts/activate_ddcci --ract",
+  //     // "min-length": 5,
+  //     "tooltip-format": "DP-1"
+  // },
   "battery": {
     "bat": "BAT0",
     "format": "{icon} {capacity}",
@@ -171,7 +191,7 @@
     ]
   },
   "memory": {
-    "interval": 30,
+    "interval": 2,
     "format": "{used:0.1f}G/{total:0.1f}G "
   }
 }
