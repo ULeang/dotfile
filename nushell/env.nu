@@ -95,7 +95,11 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-let my_path = [$"($env.HOME)/.config/scripts", $"($env.HOME)/.ghcup/bin", $"($env.HOME)/.cabal/bin", $"($env.HOME)/.cargo/bin"]
+let my_path = [$"($env.HOME)/.config/scripts",\
+$"($env.HOME)/.ghcup/bin",\
+$"($env.HOME)/.cabal/bin",\
+$"($env.HOME)/.cargo/bin",\
+$"($env.HOME)/.local/MATLAB/R2023b/bin"]
 $env.PATH = ($my_path | reduce --fold $env.PATH { |it,acc| if $it in $acc {$acc} else { $acc | append $it }} )
 
 $env.LS_COLORS = (vivid generate snazzy | str trim)
