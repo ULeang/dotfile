@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+raw=$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk -F ' ' '{print$2}')
+norm=$(echo $(( $raw * 100 )) | awk -F '.' '{print$1}')
+echo $norm
