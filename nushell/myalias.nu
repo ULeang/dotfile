@@ -17,3 +17,4 @@ export alias rs = cd ~/workspace/mcd/rsCodes
 export alias hs = cd ~/workspace/mcd/hsCodes
 
 export alias make = make -j16
+export alias msfc = msfconsole
