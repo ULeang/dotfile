@@ -1,14 +1,12 @@
 ;; Variables
-(defpoll clock_time :interval "5m" "date +\%I")
-(defpoll clock_minute :interval "5s" "date +\%M")
-(defpoll clock_date :interval "10h" "date '+%d/%m'")
-(defpoll volume_percent :interval "3s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk -F '.' '{print$2}'")
+(defpoll time :interval "5s" `date +'{"month":"%m","day":"%d","hour":"%H","minute":"%M"}'`)
+(defpoll volume_percent :interval "3s" `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk -F '.' '{print$2}'`)
 (defpoll mic_percent :interval "3s" "wpctl get-volume @DEFAULT_AUDIO_SOURCE@ | awk -F '.' '{print$2}'")
 (defpoll brightness_percent :interval "5s" "brightnessctl -md amdgpu_bl1 i | awk -F '[,%]' '{print$4}'")
 ;; (defpoll brightness_percent :interval "5s" "ddcutil -t getvcp 10 | awk -F ' ' '{print$4}'")
 (defpoll battery :interval "15s" "./scripts/battery --bat")
 (defpoll battery_status :interval "1m" "./scripts/battery --bat-st")
-(defpoll memory :interval "15s" "scripts/memory")
+(defpoll memory :interval "2s" "scripts/memory")
 (defpoll memory_used_mb :interval "2m" "scripts/mem-ad used")
 (defpoll memory_total_mb :interval "2m" "scripts/mem-ad total")
 (defpoll memory_free_mb :interval "2m" "scripts/mem-ad free")
@@ -19,14 +17,13 @@
 (defvar time_rev false)
 (deflisten v_workspaces :initial "[]" "scripts/get-workspaces")
 (deflisten current_workspace :initial "1" "scripts/get-active-workspace")
+(defpoll audio_device_name :interval "24h" "wpctl inspect @DEFAULT_AUDIO_SINK@ | grep 'node.nick' | awk -F '\"' '{print$2}'")
 
 (defvar eww "eww")
-
 
 (defpoll COL_WLAN :interval "1m" "~/.config/eww/scripts/wifi --COL")
 (defpoll ESSID_WLAN :interval "1m" "~/.config/eww/scripts/wifi --ESSID")
 (defpoll WLAN_ICON :interval "1m" "~/.config/eww/scripts/wifi --ICON")
-
 
 (defpoll song :interval "2s"  "~/.config/eww/scripts/music_info --song")
 (defpoll song_artist :interval "2s"  "~/.config/eww/scripts/music_info --artist")
@@ -34,8 +31,8 @@
 (defpoll song_status :interval "2s"  "~/.config/eww/scripts/music_info --status")
 (defpoll cover_art :interval "2s"  "~/.config/eww/scripts/music_info --cover")
 
-(defpoll calendar_day :interval "20h" "date '+%d'")
-(defpoll calendar_year :interval "20h" "date '+%Y'")
+(defpoll calendar_day :interval "1h" "date '+%d'")
+(defpoll calendar_year :interval "24h" "date '+%Y'")
 
 ;; widgets
 (defwidget wifi [] 
@@ -52,8 +49,8 @@
 
 
 (defwidget workspaces []
-  (eventbox :onscroll "scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
-    (box :space-evenly true
+  (eventbox :onscroll "scripts/change-active-workspace {} ${current_workspace}"
+    (box :space-evenly true :class "workspaces-widget"
       (for workspace in v_workspaces
         (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
           (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
@@ -113,20 +110,20 @@
   (eventbox :onhover "${eww} update time_rev=true"
             :onhoverlost "${eww} update time_rev=false"
     (box :class "module" :space-evenly false :orientation "h" :spacing "3" 
-      (label :text clock_time :class "clock_time_class")
-      (label :text "󰇙" :class "clock_time_sep")
-      (label :text clock_minute :class "clock_minute_class")
+      (label :text "${time.hour}" :class "clock_hour_class")
+      (label :text "󰇙" :class "clock_hour_sep")
+      (label :text "${time.minute}" :class "clock_minute_class")
       (revealer :transition "slideleft"
                 :reveal time_rev
                 :duration "350ms"
         (button :class "clock_date_class"
-                :onclick "$HOME/.config/eww/scripts/pop calendar" clock_date)))))
-
+                :onclick "$HOME/.config/eww/scripts/pop calendar" "${time.day}/${time.month}")))))
 
 
 (defwidget volume []
   (eventbox :onhover "${eww} update vol_reveal=true"
             :onhoverlost "${eww} update vol_reveal=false"
+            :tooltip "${audio_device_name}"
     (box :class "module-2" :space-evenly false :orientation "h" :spacing "3" 
       (button   :onclick "scripts/pop audio"   :class "volume_icon" "")
       (revealer :transition "slideleft"

@@ -30,12 +30,12 @@ tooltip label {
 
 /** Widgets **/
 
-.clock_time_sep {
-  font-size: 16;
+.clock_hour_sep {
+  font-size: 23;
   color: #bfc9db;
   margin: 0px 4px 1px 4px;
 }
-.clock_time_class, .clock_minute_class {
+.clock_hour_class, .clock_minute_class {
   font-size: 23;
 }
 .clock_date_class {
@@ -48,7 +48,7 @@ tooltip label {
   color: #bfc9db;
 }
 
-.clock_time_class {
+.clock_hour_class {
   color: #bfc9db;
   font-weight: bold;
   margin: 0px 5px 0px 0px;
@@ -364,6 +364,10 @@ calendar:indeterminate {
   margin : 0px 0px 0px 0px;
 }
 
+.workspaces-widget {
+  margin-left: 10px;
+}
+
 .workspace-entry {
   min-width: 35px;
   font-size: 20px;
@@ -436,15 +440,15 @@ calendar:indeterminate {
 .sys_text_cpu {
   color: #e4c9af;
 }
-.sys_bat_box {
+.sys_cpu_box {
   border-radius: 16px;
-  margin: 15px 10px 10px 20px;
+  margin: 20px 20px 15px 20px;
 }
 .sys_mem_box {
   border-radius: 16px;
-  margin: 10px 10px 15px 20px;
+  margin: 15px 20px 15px 20px;
 }
-.sys_cpu_box {
+.sys_bat_box {
   border-radius: 16px;
-  margin: 10px 10px 15px 20px;
+  margin: 15px 20px 20px 20px;
 }
