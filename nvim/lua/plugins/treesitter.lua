@@ -9,14 +9,14 @@ return {{
   },
   config = function()
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-    parser_config.hypr = {
-      install_info = {
-        url = "https://github.com/luckasRanarison/tree-sitter-hypr",
-        files = { "src/parser.c" },
-        branch = "master",
-      },
-      filetype = "hypr",
-    }
+    -- parser_config.hypr = {
+    --   install_info = {
+    --     url = "https://github.com/luckasRanarison/tree-sitter-hyprlang",
+    --     files = { "src/parser.c" },
+    --     branch = "master",
+    --   },
+    --   filetype = "hypr",
+    -- }
     parser_config.nu = {
       install_info = {
         url = "https://github.com/nushell/tree-sitter-nu",
@@ -46,4 +46,10 @@ return {{
     }
   end,
 },
-  { "luckasRanarison/tree-sitter-hypr" }}
+  { "luckasRanarison/tree-sitter-hypr" },
+  {
+    "luckasRanarison/tree-sitter-hyprlang",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "hyprlang" },
+  }
+}

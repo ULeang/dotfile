@@ -54,6 +54,7 @@ tooltip {
   border-radius: 10px;
 }
 
+#mpd,
 #custom-updates,
 #custom-backlightex,
 #window,
@@ -88,7 +89,12 @@ tooltip {
   border-radius: 5px 0 0 5px;
 }
 
-#window {
+/* #window { */
+/*   padding-right: 15px; */
+/*   border-radius: 0 5px 5px 0; */
+/* } */
+
+#mpd {
   padding-right: 15px;
   border-radius: 0 5px 5px 0;
 }
