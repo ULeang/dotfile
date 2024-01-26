@@ -95,16 +95,19 @@ $env.NU_PLUGIN_DIRS = [
 
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-let my_path = [$"($env.HOME)/.config/scripts",\
-$"($env.HOME)/.ghcup/bin",\
-$"($env.HOME)/.cabal/bin",\
-$"($env.HOME)/.cargo/bin",]
+let my_path = [$"($env.HOME)/.config/scripts",
+aa,
+$"($env.HOME)/.ghcup/bin",
+$"($env.HOME)/.cabal/bin",
+$"($env.HOME)/.cargo/bin"]
 $env.PATH = ($my_path | reduce --fold $env.PATH { |it,acc| if $it in $acc {$acc} else { $acc | append $it }} )
 
 $env.LS_COLORS = (vivid generate snazzy | str trim)
 $env.EDITOR = nvim
 $env.VISUAL = nvim
-$env.MPD_HOST = $"($env.HOME)/.config/mpd/socket"
+$env.MPD_HOST = "localhost"
+$env.MPD_PORT = "6600"
+# $env.MPD_HOST = $"($env.HOME)/.config/mpd/socket"
 
 mkdir ~/.cache/starship
 starship init nu | save -f ~/.cache/starship/init.nu
