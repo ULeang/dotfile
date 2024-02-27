@@ -29,7 +29,7 @@ bindkey -M menuselect 'l' vi-forward-char
 # bindkey 'jk' vi-cmd-mode
 bindkey '^J' vi-cmd-mode
 bindkey '^A' beginning-of-line
-bindkey '^F' end-of-line
+bindkey '^E' end-of-line
 bindkey '^K' up-line-or-history
 bindkey '^U' kill-whole-line
 bindkey '^W' backward-kill-word
