@@ -7,7 +7,7 @@ alias ls="lsd"
 alias ll="ls -l"
 alias la="ls -a"
 alias l="ls -la"
-alias grep="ripgrep"
+alias grep="rg"
 alias cat="bat"
 
 alias rlx="echo \"GNU,1983,Richard Mathew Stallman(rms)\nLinux,0.01,1991,Linus Torvalds\""

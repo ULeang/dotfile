@@ -7,8 +7,8 @@ return {
     local wk = require("which-key")
     wk.register({
       ["<leader>ed"] = { vim.diagnostic.open_float, "Diagnostic" },
-      ["[d"] = { vim.diagnostic.goto_prev, "Prev" },
-      ["]d"] = { vim.diagnostic.goto_next, "Next" },
+      ["[d"] = { vim.diagnostic.goto_prev, "Prev Diagnostic" },
+      ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
       ["<leader>q"] = { vim.diagnostic.setloclist, "setloclist" },
     })
 
