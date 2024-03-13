@@ -30,6 +30,7 @@ return {
             o = { "<cmd>BufferLineCloseOthers<cr>", "Delete others" },
             r = { "<cmd>BufferLineCloseRight<cr>", "Delete right" },
             l = { "<cmd>BufferLineCloseLeft<cr>", "Delete left" },
+            d = { "<cmd>bdelete<cr>", "Delete" }
           },
         },
         ["H"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },

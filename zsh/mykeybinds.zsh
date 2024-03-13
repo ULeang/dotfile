@@ -50,3 +50,5 @@ bindkey '^_' history-incremental-search-backward
 # # bindkey '^B' backward-kill-line
 # bindkey '^N' kill-whole-line
 # bindkey '^W' backward-kill-word
+
+bindkey -s '^S' '\eIsudo \eA'
