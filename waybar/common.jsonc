@@ -64,8 +64,8 @@
       "on-click-right": "mode",
       "on-click-forward": "tz_up",
       "on-click-backward": "tz_down",
-      "on-scroll-up": "shift_up",
-      "on-scroll-down": "shift_down"
+      "on-scroll-up": "shift_down",
+      "on-scroll-down": "shift_up"
     }
   },
   "wireplumber": {
@@ -121,14 +121,17 @@
   },
   "custom/backlightex": {
     "exec": "~/.config/scripts/backlight_ex get",
-    // "exec-on-event": true,
+    // "exec": "echo {\"percentage\":$(ddcutil -t getvcp 10 | cut -d ' ' -f 4)}",
+    "exec-on-event": false,
     "signal": 8,
     // "interval": 1,
     "return-type": "json",
     "format": "{icon} {percentage}",
     "format-icons": ["󰃞", "󰃟", "󰃠"],
-    "on-scroll-up": "~/.config/scripts/backlight_ex inc",
-    "on-scroll-down": "~/.config/scripts/backlight_ex dec",
+    // "on-scroll-up": "~/.config/scripts/backlight_ex inc",
+    // "on-scroll-down": "~/.config/scripts/backlight_ex dec",
+    "on-scroll-up": "ddcutil -t setvcp 10 + 10 && pkill -RTMIN+8 waybar",
+    "on-scroll-down": "ddcutil -t setvcp 10 - 10 && pkill -RTMIN+8 waybar",
     "tooltip": false
   },
   // "backlight#external": {
