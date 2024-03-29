@@ -11,7 +11,7 @@ setopt MENU_COMPLETE        # Automatically highlight first element of completio
 # :completion:<function>:<completer>:<command>:<argument>:<tag>
 
 # Define completers
-zstyle ':completion:*' completer _extensions _complete
+zstyle ':completion:*' completer _extensions _complete _approximate
 
 # Use cache for commands using cache
 # zstyle ':completion:*' use-cache on

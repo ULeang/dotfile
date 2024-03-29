@@ -15,3 +15,5 @@ export PATH="$HOME/.config/scripts:$PATH"
 # pa
 export NEMU_HOME=/home/ulya/pa/ics2023/nemu
 export AM_HOME=/home/ulya/pa/ics2023/abstract-machine
+
+export CODE="$HOME/workspace/mcd"
