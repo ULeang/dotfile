@@ -28,7 +28,7 @@ set.termguicolors = true
 set.wrap = true
 set.wrapscan = false
 
-set.signcolumn = "yes"
+set.signcolumn = "auto:1-3"
 
 set.showmode = false
 

@@ -1,40 +1,58 @@
 return {
   {
-    'simrat39/rust-tools.nvim',
-    ft = { 'rust', 'toml', },
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      -- Debugging
-      'mfussenegger/nvim-dap',
-      'nvim-lua/plenary.nvim',
-    },
+    'mrcjkb/rustaceanvim',
+    version = '^4', -- Recommended
+    ft = { 'rust' },
+
     config = function()
       local M = {
-        execute_command = function(command, args, cwd)
-          local utils = require('rust-tools.utils.utils')
-          local full_comand = utils.chain_commands({
-            utils.make_command_from_args("cd", {cwd}),
-            utils.make_command_from_args(command, args),
-          })
-          vim.cmd([[FloatermNew --autoclose=0 ]] .. full_comand)
+        execute_command = function(command, args, cwd, _)
+          local shell = require('rustaceanvim.shell')
+          local commands = {}
+          if cwd then
+            table.insert(commands, shell.make_cd_command(cwd))
+          end
+          table.insert(commands, shell.make_command_from_args(command, args))
+          local full_command = shell.chain_commands(commands)
+          vim.cmd([[FloatermNew --autoclose=0 ]] .. full_command)
         end
       }
-
-      local rt = require("rust-tools")
-      rt.setup{
+      vim.g.rustaceanvim = {
         tools = {
-          -- executor = require('rust-tools.executors').termopen,
           executor = M,
+          test_executor = 'background',
+          on_initialized = function(health)
+            local h = health.health
+            if h ~= "ok" then
+              vim.notify('rust-analyzer initialized status: '.. h, "warn")
+            end
+          end,
         },
         server = {
           on_attach = function(_, bufnr)
             local wk = require("which-key")
             wk.register({
-              ["<leader>a"] = { rt.code_action_group.code_action_group, "Code Action Group - Rust" },
-              ["<C-;>"] = { rt.hover_actions.hover_actions, "Hover Action - Rust" },
-            }, { buffer = bufnr})
+              ["<C-;>"] = { function() vim.cmd.RustLsp { 'hover','actions' } end, "Hover Action - Rust" },
+              ["<leader>"] = {
+                r = {
+                  name = "Rust",
+                  a = { function() vim.cmd.RustLsp{'codeAction'} end, "Code Action - Rust" },
+                  t = { function() vim.cmd.RustLsp{'testables'} end, "Test" },
+                  r = { function() vim.cmd.RustLsp{'runnables'} end, "Run" },
+                  d = { function() vim.cmd.RustLsp{'debuggables'} end, "Debug" },
+                  M = { function() vim.cmd.RustLsp{'expandMacro'} end, "Expand Macro Recursively" },
+                  J = { function() vim.cmd.RustLsp{'moveItem', 'down'} end, "Move Down" },
+                  K = { function() vim.cmd.RustLsp{'moveItem', 'up'} end, "Move Up" },
+                  E = { function() vim.cmd.RustLsp{'explainError'} end, "Explain" },
+                  R = { function() vim.cmd.RustLsp{'renderDiagnostic'} end, "Render Diagnostic" },
+                  C = { function() vim.cmd.RustLsp{'openCargo'} end, "Open Cargo" },
+                  D = { function() vim.cmd.RustLsp{'openDocs'} end, "Open Docs" },
+                  P = { function() vim.cmd.RustLsp{'parentModule'} end, "ParentModule" },
+                }
+              }
+            }, { silent = true, buffer = bufnr })
           end,
-        },
+        }
       }
     end
   },
