@@ -54,4 +54,4 @@ nnoremap <silent> <leader>bd :bdelete<cr>
 
 tnoremap <C-n><C-n> <C-\\><C-n>
 
-nnoremap <leader>gg gg=Gzz
+nnoremap <leader>gg gg=G``
