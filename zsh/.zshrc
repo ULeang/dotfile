@@ -2,6 +2,7 @@ HISTFILE=$ZDOTDIR/.zhistory
 HISTSIZE=10000
 SAVEHIST=10000
 setopt autocd extendedglob nomatch appendhistory histignoredups pushdignoredups noflowcontrol
+setopt autopushd pushdignoredups pushdsilent
 unsetopt beep
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

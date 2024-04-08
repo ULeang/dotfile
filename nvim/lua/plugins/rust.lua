@@ -30,6 +30,7 @@ return {
         },
         server = {
           on_attach = function(_, bufnr)
+            vim.lsp.inlay_hint.enable()
             local wk = require("which-key")
             wk.register({
               ["<C-;>"] = { function() vim.cmd.RustLsp { 'hover','actions' } end, "Hover Action - Rust" },

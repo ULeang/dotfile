@@ -26,4 +26,4 @@ map("n", "<leader>nh", ":nohl<CR>", opt)
 
 map("t", "<C-n><C-n>", "<C-\\><C-n>", opt)
 
-map("n","<leader>gg","gg=Gzz", opt)
+map("n","<leader>ft","gg=G``", opt)

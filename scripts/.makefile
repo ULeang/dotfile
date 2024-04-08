@@ -23,6 +23,7 @@ OBJCOPY=$(CROSSCOMPILE)objcopy
 
 BINTARGET=$(addprefix $(BINDIR)/,$(TARGET))
 SRCS_C=$(wildcard $(SRCDIR)/*.c)
+SRCS_C+=$(wildcard *.c)
 SRCS_ASM=$(wildcard $(SRCDIR)/*.S)
 OBJS=$(patsubst %.c,$(BUILDDIR)/%.o,$(notdir $(SRCS_C)))
 OBJS+=$(patsubst %.S,$(BUILDDIR)/%.o,$(notdir $(SRCS_ASM)))
@@ -37,7 +38,11 @@ $(BINTARGET): $(OBJS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.c
 	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
+$(BUILDDIR)/%.o: %.c
+	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
 $(BUILDDIR)/%.o: $(SRCDIR)/%.S
+	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
+$(BUILDDIR)/%.o: %.S
 	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
 
 $(BUILDDIR)/%.d: $(SRCDIR)/%.c
@@ -45,7 +50,17 @@ $(BUILDDIR)/%.d: $(SRCDIR)/%.c
 	 $(CC) -MM -MF $@.$$$$ $< $(CFLAGS); \
 	 sed 's,\($*\.o\)[ :]*,$(BUILDDIR)/\1 $@ : ,g' < $@.$$$$ > $@; \
 	 rm -f $@.$$$$
+$(BUILDDIR)/%.d: %.c
+	@set -e; rm -f $@; \
+	 $(CC) -MM -MF $@.$$$$ $< $(CFLAGS); \
+	 sed 's,\($*\.o\)[ :]*,$(BUILDDIR)/\1 $@ : ,g' < $@.$$$$ > $@; \
+	 rm -f $@.$$$$
 $(BUILDDIR)/%.d: $(SRCDIR)/%.S
+	@set -e; rm -f $@; \
+	 $(CC) -MM -MF $@.$$$$ $< $(CFLAGS); \
+	 sed 's,\($*\.o\)[ :]*,$(BUILDDIR)/\1 $@ : ,g' < $@.$$$$ > $@; \
+	 rm -f $@.$$$$
+$(BUILDDIR)/%.d: %.S
 	@set -e; rm -f $@; \
 	 $(CC) -MM -MF $@.$$$$ $< $(CFLAGS); \
 	 sed 's,\($*\.o\)[ :]*,$(BUILDDIR)/\1 $@ : ,g' < $@.$$$$ > $@; \
@@ -61,6 +76,7 @@ debug: all
 
 .PHONY: clean
 clean:
-	@rm -f $(BINTARGET) $(OBJS) $(DEPS)
+	@rm -rf $(BINTARGET) $(OBJS) $(DEPS) $(BUILDDIR)
 
+_mk_build_path := $(shell mkdir -p $(BUILDDIR))
 -include $(DEPS)

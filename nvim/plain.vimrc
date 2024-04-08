@@ -26,9 +26,9 @@ set termguicolors
 set wrap
 set nowrapscan
 
-set signcolumn=auto:1-3
+" set signcolumn=auto:1-3
 
-set noshowmode
+" set noshowmode
 
 let g:mapleader=" "
 let g:maplocalleader=" "

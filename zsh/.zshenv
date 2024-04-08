@@ -12,8 +12,13 @@ export VISUAL="nvim"
 # my script dir
 export PATH="$HOME/.config/scripts:$PATH"
 
-# pa
-export NEMU_HOME=/home/ulya/pa/ics2023/nemu
-export AM_HOME=/home/ulya/pa/ics2023/abstract-machine
-
 export CODE="$HOME/workspace/mcd"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
+
+export NEMU_HOME=/home/ulya/ysyx-workbench/nemu
+export AM_HOME=/home/ulya/ysyx-workbench/abstract-machine
+export NPC_HOME=/home/ulya/ysyx-workbench/npc

@@ -4,22 +4,22 @@ bindkey -v
 export KEYTIMEOUT=1
 
 # Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'underline' ]]; then
-    echo -ne '\e[3 q'
-  fi
-}
-zle -N zle-keymap-select
-zle-line-init() {
-    echo -ne "\e[3 q"
-}
-zle -N zle-line-init
+# function zle-keymap-select {
+#   if [[ ${KEYMAP} == vicmd ]] ||
+#      [[ $1 = 'block' ]]; then
+#     echo -ne '\e[1 q'
+#   elif [[ ${KEYMAP} == main ]] ||
+#        [[ ${KEYMAP} == viins ]] ||
+#        [[ ${KEYMAP} = '' ]] ||
+#        [[ $1 = 'underline' ]]; then
+#     echo -ne '\e[3 q'
+#   fi
+# }
+# zle -N zle-keymap-select
+# zle-line-init() {
+#     echo -ne "\e[3 q"
+# }
+# zle -N zle-line-init
 
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
@@ -52,3 +52,16 @@ bindkey '^_' history-incremental-search-backward
 # bindkey '^W' backward-kill-word
 
 bindkey -s '^S' '\eIsudo \eA'
+
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+  bindkey -M $km -- '-' vi-up-line-or-history
+  for c in {a,i}${(s..)^:-\'\"\`\|,./:;=+@}; do
+    bindkey -M $km $c select-quoted
+  done
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $km $c select-bracketed
+  done
+done

@@ -16,7 +16,7 @@ return {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
         -- nvim >= 0.10.0
-        vim.lsp.inlay_hint.enable()
+        -- vim.lsp.inlay_hint.enable()
 
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -51,11 +51,6 @@ return {
       end,
     })
     require("lspconfig").pyright.setup{}
-    require("lspconfig").clangd.setup{
-      -- on_attach = function()
-      --   require("clangd_extensions.inlay_hints").setup_autocmd()
-      --   require("clangd_extensions.inlay_hints").set_inlay_hints()
-      -- end
-    }
+    require("lspconfig").clangd.setup{}
   end
 }

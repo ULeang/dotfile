@@ -21,7 +21,7 @@ zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' menu select
 
 # Autocomplete options for cd instead of directory stack
-zstyle ':completion:*' complete-options true
+# zstyle ':completion:*' complete-options true
 
 zstyle ':completion:*' file-sort modification
 

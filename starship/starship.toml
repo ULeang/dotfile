@@ -3,10 +3,9 @@
 
 # Inserts a blank line between shell prompts
 add_newline = false
-right_format = "$shell$time"
+right_format = "$status$shell$time"
 
 [character] # The name of the module we are configuring is 'character'
-# success_symbol = '[~>](bold green)' # The 'success_symbol' segment is being set to '~> with the color 'bold green'
 
 [rust]
 symbol = '󱘗 '
@@ -24,3 +23,14 @@ format = '[at](cyan bold) [$time]($style) '
 # Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
+
+[status]
+disabled = false
+symbol = '󰲼 '
+success_symbol = ''
+not_executable_symbol = '󱔢 '
+not_found_symbol = ' '
+sigint_symbol = ' '
+signal_symbol = ' '
+style = 'bold red'
+pipestatus = true

@@ -3,11 +3,13 @@ return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
     dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lua',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
-      'hrsh7th/nvim-cmp',
+      'neovim/nvim-lspconfig',
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       'onsails/lspkind.nvim',
@@ -34,11 +36,14 @@ return {
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
+          { name = 'nvim_lsp_signature_help' },
+          { name = 'nvim_lua' },
           { name = 'luasnip' },
           { name = 'path' },
-          { name = 'buffer' },
-          { name = 'crates' },
-        }),
+          { name = 'crates' }
+        },{
+            -- { name = 'buffer', keyword_length = 3 }
+          }),
         sorting = {
           comparators = {
             cmp.config.compare.offset,
@@ -51,15 +56,37 @@ return {
             cmp.config.compare.order,
           },
         },
+        view = {
+          entries = {
+            name = "custom",
+            selection_order = "near_cursor",
+          }
+        },
         formatting = {
           format = require('lspkind').cmp_format({
             mode = 'symbol', -- show only symbol annotations
-            maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            -- menu = ({
+            --   buffer = "[Buf]",
+            --   nvim_lsp = "[LSP]",
+            --   luasnip = "[LuaSnip]",
+            --   nvim_lua = "[Lua]",
+            --   latex_symbols = "[Latex]",
+            -- }),
+            maxwidth = 30, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+            -- can also be a function to dynamically calculate max width such as 
+            -- maxwidth = function() return math.floor(0.45 * vim.o.columns) end,
             ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead (must define maxwidth first)
+            show_labelDetails = true, -- show labelDetails in menu. Disabled by default
 
             -- The function below will be called before any actual modifications from lspkind
             -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
             before = function (entry, vim_item)
+              -- if vim_item.menu then
+              --   if string.len(vim_item.menu) > 30 then
+              --     vim_item.menu = string.sub(vim_item.menu, 0, 27) .. "..."
+              --   end
+              -- end
+              vim_item.menu = nil
               return vim_item
             end
           })
@@ -69,7 +96,7 @@ return {
       -- Set configuration for specific filetype.
       cmp.setup.filetype('gitcommit', {
         sources = cmp.config.sources({
-          { name = 'cmp_git' }, -- You can specify the `cmp_git` source if you were installed it.
+          { name = 'git' }, -- You can specify the `git` source if you were installed it.
         }, {
             { name = 'buffer' },
           })
@@ -90,7 +117,8 @@ return {
           { name = 'path' }
         }, {
             { name = 'cmdline' }
-          })
+          }),
+        matching = { disallow_symbol_nonprefix_matching = false }
       })
 
       -- Set up lspconfig.
