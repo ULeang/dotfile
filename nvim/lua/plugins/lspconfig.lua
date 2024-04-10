@@ -16,7 +16,7 @@ return {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
         -- nvim >= 0.10.0
-        -- vim.lsp.inlay_hint.enable()
+        vim.lsp.inlay_hint.enable()
 
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -40,17 +40,20 @@ return {
               l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List Folder" },
             },
             D = { vim.lsp.buf.type_definition, "Type Definition" },
-            H = { vim.lsp.buf.hover, "Hover" },
           },
           ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
           ["<leader>ft"] = { function() vim.lsp.buf.format { async = true } end, "Format" },
+          ["<C-;>"] = { vim.lsp.buf.hover, "Hover" };
         }, opts)
         wk.register({
           ["<leader>ca"] = { vim.lsp.buf.code_action, "Code Action" },
         },{ buffer = ev.buf, mode = { "n", "v" } })
       end,
     })
-    require("lspconfig").pyright.setup{}
-    require("lspconfig").clangd.setup{}
+
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    require('lspconfig').clangd.setup {
+      capabilities = capabilities
+    }
   end
 }

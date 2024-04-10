@@ -2,7 +2,7 @@
 # alias ll="ls -l --color=auto"
 # alias la="ls -a --color=auto"
 # alias l="ls -la --color=auto"
-# alias grep="grep --color=auto"
+alias grep="grep --color=auto"
 alias ls="lsd"
 alias ll="ls -l"
 alias la="ls -a"
