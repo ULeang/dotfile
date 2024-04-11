@@ -28,7 +28,7 @@ if (( $? != 0 )) {
   print -l "no project created"
   exit 4
 }
-cp ~/.config/scripts/{.clang-format,verilator/{Makefile,config.mk}} $1
+cp ~/.config/scripts/mkxpr/{.clang-format,verilator/{Makefile,config.mk}} $1
 if (( $? != 0 )) {
   print -l "\033[1;31merror: \033[0munknown error occurred" >&2
   print -l "no templates copied"

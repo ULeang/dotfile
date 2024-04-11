@@ -43,9 +43,13 @@ include config.mk
 
 ################################################################################
 
-$(VERILATOR_FLAGS)+=$(addprefix --top-module ,$(TOPMODULE))
-$(VERILATOR_FLAGS)+=$(addprefix --Mdir ,$(MDIR))
-$(VERILATOR_FLAGS)+=$(addprefix --threads ,$(THREADS))
+ifeq ($(MDIR),)
+MDIR:=obj_dir
+endif
+
+VERILATOR_FLAGS+=$(addprefix --top-module ,$(TOPMODULE))
+VERILATOR_FLAGS+=$(addprefix --Mdir ,$(MDIR))
+VERILATOR_FLAGS+=$(addprefix --threads ,$(THREADS))
 
 VSRC_D+=$(foreach d,$(VSRC_D_RECUR),$(shell zsh -c 'echo $(d)/**/*(FN)'))
 VSRC_D+=$(VSRC_D_RECUR)
@@ -87,7 +91,7 @@ wave: $(WAVE)
 	@echo
 	@echo '### WAVING     ###############'
 	@echo
-	@gtkwave $^
+	gtkwave $^
 
 $(EXECUTABLE): $(VERILATOR_INPUT)
 	@echo
@@ -104,6 +108,18 @@ $(WAVE): $(EXECUTABLE)
 	@echo '### SIMULATING ###############'
 	@echo
 	./$< $(SIM_FLAGS)
+
+.PHONY: rewave
+rewave: $(EXECUTABLE)
+	@echo
+	@echo '### SIMULATING - FORCE #######'
+	@echo
+	./$< $(SIM_FLAGS)
+	@echo
+	@echo '### WAVING - FORCE    ########'
+	@echo
+	gtkwave $(WAVE)
+
 
 .PHONY: lint
 lint:

@@ -1,9 +1,8 @@
-################################################################################
 # module name (the prefix verilator generates, namely the `xxx` in `Vxxx.h`)
-MODULE:=alu
+MODULE:=top
 
 # multithreaded simulation model
-THREADS:=
+THREADS:=1
 
 # use this option to specify the top module, remove all other top modules
 # should correspond to `MODULE` otherwise this makefile won't work
@@ -11,7 +10,7 @@ THREADS:=
 TOPMODULE:=
 
 # default is `obj_dir`
-MDIR:=obj_dir
+MDIR:=
 
 VSRC_D:=.
 VSRC_D_RECUR:=vsrc
@@ -21,3 +20,6 @@ CSRC_D_RECUR:=csrc
 SIM_FLAGS:=+trace
 
 WAVE:=waveform.vcd
+
+# tell `V$(MODULE).mk` to generate debuging information
+# export CXXFLAGS+=-g
