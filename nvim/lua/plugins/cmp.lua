@@ -42,7 +42,7 @@ return {
           { name = 'path' },
           { name = 'crates' }
         },{
-            -- { name = 'buffer', keyword_length = 3 }
+            { name = 'buffer', keyword_length = 3 }
           }),
         sorting = {
           comparators = {

@@ -1,0 +1,40 @@
+#!/usr/bin/zsh
+
+pwd=$(pwd)
+print -l "\033[1;34mworking directory: \033[0m\033[4m$pwd\033[0m"
+
+if (( $#1 == 0 )) {
+  print -l "\033[1;33musage: \033[0;32mmkvpr \033[4;37m<projectname>\033[0m" >&2
+  print -l "no project created"
+  exit 1
+}
+print -l "\033[1;34mtarget projectname: \033[0m\033[4m$1\033[0m"
+
+if [[ ! -w $pwd ]] {
+  print -l "\033[1;31merror: \033[0mcannot write at working directory" >&2
+  print -l "no project created"
+  exit 2
+}
+
+if [[ -e $1 ]] {
+  print -l "\033[1;31merror: \033[0mfile '$1' already exists" >&2
+  print -l "no project created"
+  exit 3
+}
+
+mkdir $pwd/$1
+if (( $? != 0 )) {
+  print -l "\033[1;31merror: \033[0munknown error occurred" >&2
+  print -l "no project created"
+  exit 4
+}
+cp ~/.config/scripts/{.clang-format,verilator/{Makefile,config.mk}} $1
+if (( $? != 0 )) {
+  print -l "\033[1;31merror: \033[0munknown error occurred" >&2
+  print -l "no templates copied"
+  exit 5
+}
+
+print -l "project $1 created"
+print -l "Done"
+exit 0
