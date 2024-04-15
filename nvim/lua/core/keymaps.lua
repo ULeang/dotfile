@@ -24,6 +24,10 @@ map("n", "<leader>nh", ":nohl<CR>", opt)
 -- map("n", "<S-H>", ":bprevious<CR>", opt)
 -- map("n", "<C-W>", ":bdelete<CR>", opt)
 
-map("t", "<C-n><C-n>", "<C-\\><C-n>", opt)
+map("t", "<C-g><C-g>", "<C-\\><C-n>", opt)
 
 map("n","<leader>ft","gg=G``", opt)
+
+map("i", "<C-f>", "<Right>", opt)
+map("i", "<C-b>", "<Left>", opt)
+map({"n", "i", "v", "x"}, "<C-g>", "<esc>", opt)

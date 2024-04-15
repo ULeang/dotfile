@@ -36,13 +36,13 @@ return {
       })
       -- If you want icons for diagnostic errors, you'll need to define them somewhere:
       vim.fn.sign_define("DiagnosticSignError",
-        {text = " ", texthl = "DiagnosticSignError"})
+        {text = " ", texthl = "DiagnosticSignError"})
       vim.fn.sign_define("DiagnosticSignWarn",
-        {text = " ", texthl = "DiagnosticSignWarn"})
+        {text = " ", texthl = "DiagnosticSignWarn"})
       vim.fn.sign_define("DiagnosticSignInfo",
-        {text = " ", texthl = "DiagnosticSignInfo"})
+        {text = " ", texthl = "DiagnosticSignInfo"})
       vim.fn.sign_define("DiagnosticSignHint",
-        {text = "󰌵", texthl = "DiagnosticSignHint"})
+        {text = "", texthl = "DiagnosticSignHint"})
 
       require("neo-tree").setup({
         source_selector = {
@@ -132,7 +132,7 @@ return {
             required_width = 110, -- min width of window required to show this column
           },
           symlink_target = {
-            enabled = false,
+            enabled = true,
           },
         },
         -- A list of functions, each representing a global custom command
@@ -168,13 +168,13 @@ return {
             ["C"] = "close_node",
             -- ['C'] = 'close_all_subnodes',
             ["z"] = "close_all_nodes",
-            --["Z"] = "expand_all_nodes",
+            ["Z"] = "expand_all_nodes",
             ["a"] = { 
               "add",
               -- this command supports BASH style brace expansion ("x{a,b,c}" -> xa,xb,xc). see `:h neo-tree-file-actions` for details
               -- some commands may take optional config options, see `:h neo-tree-mappings` for details
               config = {
-                show_path = "none" -- "none", "relative", "absolute"
+                show_path = "relative" -- "none", "relative", "absolute"
               }
             },
             ["A"] = "add_directory", -- also accepts the optional config.show_path option like "add". this also supports BASH style brace expansion.
@@ -235,7 +235,7 @@ return {
           -- "open_current",  -- netrw disabled, opening a directory opens within the
           -- window like netrw would, regardless of window.position
           -- "disabled",    -- netrw left alone, neo-tree does not handle opening dirs
-          use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes
+          use_libuv_file_watcher = true, -- This will use the OS level file watchers to detect changes
           -- instead of relying on nvim autocmd events.
           window = {
             mappings = {

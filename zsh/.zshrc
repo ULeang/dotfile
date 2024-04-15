@@ -12,7 +12,8 @@ eval "$(starship init zsh)"
 
 source ~/.config/zsh/myzshalias.zsh
 source ~/.config/zsh/completion.zsh
-source ~/.config/zsh/mykeybinds.zsh
+# source ~/.config/zsh/mykeybinds_vim.zsh
+source ~/.config/zsh/mykeybinds_emacs.zsh
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/z/z.sh

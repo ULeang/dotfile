@@ -28,14 +28,20 @@ bindkey -M menuselect 'l' vi-forward-char
 
 # bindkey 'jk' vi-cmd-mode
 bindkey '^J' vi-cmd-mode
-bindkey '^A' beginning-of-line
-bindkey '^E' end-of-line
-bindkey '^K' up-line-or-history
 bindkey '^U' kill-whole-line
 bindkey '^W' backward-kill-word
 bindkey '^H' backward-delete-char
 # ctrl /
 bindkey '^_' history-incremental-search-backward
+
+bindkey '^p' up-line-or-history
+bindkey '^n' down-line-or-history
+bindkey '^f' forward-char
+bindkey '^b' backward-char
+bindkey '^a' beginning-of-line
+bindkey '^e' end-of-line
+bindkey '\eb' backward-word
+bindkey '\ef' forward-word
 
 # backspace
 # bindkey '^?' vi-backward-delete-char
@@ -51,7 +57,7 @@ bindkey '^_' history-incremental-search-backward
 # bindkey '^N' kill-whole-line
 # bindkey '^W' backward-kill-word
 
-bindkey -s '^S' '\eIsudo \eA'
+bindkey -s '^s' '\eIsudo \eA'
 
 autoload -Uz select-bracketed select-quoted
 zle -N select-quoted

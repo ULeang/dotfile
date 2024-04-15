@@ -27,10 +27,10 @@ return {
             name = "Buffer Line",
             p = { "<cmd>BufferLineTogglePin<cr>", "Toggle pin" },
             P = { "<cmd>BufferLineGroupClose ungrouped<cr>", "Delete non-pinned" },
-            o = { "<cmd>BufferLineCloseOthers<cr>", "Delete others" },
-            r = { "<cmd>BufferLineCloseRight<cr>", "Delete right" },
-            l = { "<cmd>BufferLineCloseLeft<cr>", "Delete left" },
-            d = { "<cmd>bdelete<cr>", "Delete" }
+            ['1'] = { "<cmd>BufferLineCloseOthers<cr>", "Delete others" },
+            l = { "<cmd>BufferLineCloseRight<cr>", "Delete right" },
+            h = { "<cmd>BufferLineCloseLeft<cr>", "Delete left" },
+            ['0'] = { "<cmd>bdelete<cr>", "Delete" }
           },
         },
         ["H"] = { "<cmd>BufferLineCyclePrev<cr>", "Prev buffer" },

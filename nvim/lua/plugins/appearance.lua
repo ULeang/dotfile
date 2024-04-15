@@ -42,15 +42,17 @@ return {
 
       -- Set menu
       dashboard.section.buttons.val = {
-        dashboard.button("n", "  New",  ":ene <BAR> startinsert <CR>"),
-        dashboard.button("f", "  File", ":Telescope find_files <CR>"),
-        dashboard.button("o", "  Old",  ":Telescope oldfiles <CR>"),
-        dashboard.button("s", "  Sett", ":cd ~/.config/nvim | :Neotree focus filesystem float toggle<CR>"),
-        -- dashboard.button("s", "  Sett", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+        dashboard.button("n", "  New",  ":enew <BAR> startinsert <CR>"),
+        dashboard.button("f", "  Find", ":Telescope find_files <CR>"),
+        dashboard.button("o", "  Recent",  ":Telescope oldfiles <CR>"),
+        dashboard.button("g", "  Grep",  ":Telescope live_grep <CR>"),
+        dashboard.button("s", "  Settings", ":cd ~/.config/nvim | Neotree focus filesystem float toggle<CR>"),
+        dashboard.button("l", "󰒲  Lazy", ":Lazy<cr>"),
         dashboard.button("q", "  Quit", ":qa<CR>"),
         -- dashboard.button( "f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
         -- dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
         -- dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
+        -- dashboard.button("s", "  Sett", ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),
       }
 
       dashboard.section.footer.val = {

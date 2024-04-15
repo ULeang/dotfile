@@ -18,6 +18,7 @@ alias wp="~/workspace/"
 alias mcd="~/workspace/mcd/"
 
 alias nv="nvim"
+alias ems="emacs -nw"
 
 alias xx="~/workspace/mcd/xxCodes"
 alias rs="~/workspace/mcd/rsCodes"

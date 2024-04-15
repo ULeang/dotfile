@@ -1,7 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = {"InsertEnter","CmdlineEnter"},
     dependencies = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lua',
@@ -27,12 +27,12 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert({
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-e>'] = cmp.mapping.abort(),
+          ['<M-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<M-f>'] = cmp.mapping.scroll_docs(4),
+          ['<C-g>'] = cmp.mapping.abort(),
           ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<tab>'] = cmp.mapping.select_next_item(),
-          ['<S-tab>'] = cmp.mapping.select_prev_item(),
+          ['<TAB>'] = cmp.mapping.select_next_item(),
+          ['<S-TAB>'] = cmp.mapping.select_prev_item(),
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },

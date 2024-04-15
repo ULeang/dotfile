@@ -1,11 +1,11 @@
-# c version
+# cpp version
 #
 # TODO:the master bin name
 MASTER:=sample
 # TODO:where to place the master bin
 MASTER_D:=.
 # TODO:the master src name, with a `main` entry
-MASTER_SRC_NAME:=main.c
+MASTER_SRC_NAME:=main.cpp
 # TODO:where to search the master src
 MASTER_SRC_D:=. src
 
@@ -14,7 +14,7 @@ INC_D:=. include
 # TODO:pass to CC with `-L` option
 LIB_D:=. lib
 
-# TODO:where to search the src with a suffix `.c`, these files are those without a `main` entry
+# TODO:where to search the src with a suffix `.cpp`, these files are those without a `main` entry
 SRC_D:=.
 # TODO:recursively add all non-empty directories into `SRC_D`, including self
 SRC_D_RECUR:=src
@@ -53,13 +53,13 @@ LIBA:=
 LIB_BIN_D:=bin/lib
 
 # TODO:options passed to CC
-CFLAGS:=-O0 -g -Wall -Wextra
+CFLAGS:=-O0 -g -Wall -Wextra -lstdc++
 # TODO:options passed to CC, when the `RELEASE` argument is not empty
 CFLAGS_RELEASE:=-O2 -DNDEBUG
 # TODO:libs to link, names listed here will be packed into `-lx` option and passed to CC
 LIBS:=
 # TODO:the `-std=` option passed to CC
-STD:=gnu17
+STD:=gnu++23
 
 # PASS TO CC WHEN CREATE SO
 CCSOFLAGS:=-fPIC
@@ -105,9 +105,10 @@ CFLAGS+=$(addprefix -std=,$(STD))
 vpath $(MASTER_SRC) $(MASTER_SRC_D)
 vpath %.o $(BUILD_OBJ_D)
 vpath %.d $(BUILD_DEP_D)
-vpath %.c $(SRC_D) $(BIN_SRC_D) $(TEST_SRC_D)
+vpath %.cpp $(SRC_D) $(BIN_SRC_D) $(TEST_SRC_D)
 vpath %.S $(ASM_D)
 vpath %.h $(INC_D)
+vpath % $(INC_D)
 
 MASTER_SRC:=$(wildcard $(addsuffix /$(MASTER_SRC_NAME),$(MASTER_SRC_D)))
 ifeq ($(words $(MASTER_SRC)),0)
@@ -117,27 +118,27 @@ MASTER_BIN:=$(addprefix $(MASTER_D)/,$(MASTER))
 else
 MASTER_BIN:=$(error multiple `$(MASTER_SRC_NAME)` found!)
 endif
-MASTER_OBJ:=$(patsubst %.c,$(BUILD_OBJ_D)/%.o,$(MASTER_SRC_NAME))
-MASTER_DEP:=$(patsubst %.c,$(BUILD_DEP_D)/%.d,$(MASTER_SRC_NAME))
+MASTER_OBJ:=$(patsubst %.cpp,$(BUILD_OBJ_D)/%.o,$(MASTER_SRC_NAME))
+MASTER_DEP:=$(patsubst %.cpp,$(BUILD_DEP_D)/%.d,$(MASTER_SRC_NAME))
 
 SO_FILE:=$(addprefix $(LIB_BIN_D)/,$(LIBSO))
 A_FILE:=$(addprefix $(LIB_BIN_D)/,$(LIBA))
 
-BINS_SRC:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.c,$(BIN_SRC_D)))))
-BINS:=$(addprefix $(BIN_D)/,$(patsubst %.c,%,$(BINS_SRC)))
-BINS_OBJ:=$(patsubst %.c,$(BUILD_OBJ_D)/%.o,$(BINS_SRC))
-BINS_DEP:=$(patsubst %.c,$(BUILD_DEP_D)/%.d,$(BINS_SRC))
+BINS_SRC:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.cpp,$(BIN_SRC_D)))))
+BINS:=$(addprefix $(BIN_D)/,$(patsubst %.cpp,%,$(BINS_SRC)))
+BINS_OBJ:=$(patsubst %.cpp,$(BUILD_OBJ_D)/%.o,$(BINS_SRC))
+BINS_DEP:=$(patsubst %.cpp,$(BUILD_DEP_D)/%.d,$(BINS_SRC))
 
-TEST_SRC:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.c,$(TEST_SRC_D)))))
-TEST_BIN:=$(addprefix $(TEST_D)/,$(patsubst %.c,%,$(TEST_SRC)))
-TEST_OBJ:=$(patsubst %.c,$(BUILD_OBJ_D)/%.o,$(TEST_SRC))
-TEST_DEP:=$(patsubst %.c,$(BUILD_DEP_D)/%.d,$(TEST_SRC))
+TEST_SRC:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.cpp,$(TEST_SRC_D)))))
+TEST_BIN:=$(addprefix $(TEST_D)/,$(patsubst %.cpp,%,$(TEST_SRC)))
+TEST_OBJ:=$(patsubst %.cpp,$(BUILD_OBJ_D)/%.o,$(TEST_SRC))
+TEST_DEP:=$(patsubst %.cpp,$(BUILD_DEP_D)/%.d,$(TEST_SRC))
 
-SRC:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.c,$(SRC_D)))))
+SRC:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.cpp,$(SRC_D)))))
 ASM:=$(filter-out $(MASTER_SRC),$(notdir $(wildcard $(addsuffix /*.S,$(ASM_D)))))
-OBJ:=$(patsubst %.c,$(BUILD_OBJ_D)/%.o,$(SRC))
+OBJ:=$(patsubst %.cpp,$(BUILD_OBJ_D)/%.o,$(SRC))
 OBJ+=$(patsubst %.S,$(BUILD_OBJ_D)/%.o,$(ASM))
-DEP:=$(patsubst %.c,$(BUILD_DEP_D)/%.d,$(SRC))
+DEP:=$(patsubst %.cpp,$(BUILD_DEP_D)/%.d,$(SRC))
 DEP+=$(patsubst %.S,$(BUILD_DEP_D)/%.d,$(ASM))
 
 .PHONY: all
@@ -157,7 +158,7 @@ $(SO_FILE): $(OBJ)
 $(A_FILE): $(OBJ)
 	@$(AR) rcs $@ $^ $(ARFLAGS)
 
-$(BUILD_OBJ_D)/%.o: %.c
+$(BUILD_OBJ_D)/%.o: %.cpp
 	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
 $(BUILD_OBJ_D)/%.o: %.S
 	@$(CC) -o $@ -c $< $(CPPFLAGS) $(CFLAGS)
@@ -166,7 +167,7 @@ $(BUILD_OBJ_D)/%.o: %.S
 fixsedcmd=$(subst /,\/,$(patsubst ./%,%,$(1)))
 __use_by_sed_dep:=$(call fixsedcmd,$(BUILD_DEP_D))
 __use_by_sed_obj:=$(call fixsedcmd,$(BUILD_OBJ_D))
-$(BUILD_DEP_D)/%.d: %.c
+$(BUILD_DEP_D)/%.d: %.cpp
 	@set -e; rm -f $@; \
 		$(CC) -MM -MF $@ $< $(CFLAGS); \
 		sed -i 's/\(.\+\)\.o:.*/$(__use_by_sed_dep)\/\1\.d $(__use_by_sed_obj)\/\0/' $@

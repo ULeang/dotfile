@@ -4,7 +4,7 @@ pwd=$(pwd)
 print -l "\033[1;34mworking directory: \033[0m\033[4m$pwd\033[0m"
 
 if (( $#1 == 0 )) {
-  print -l "\033[1;33musage: \033[0;32mmkvpr \033[4;37m<projectname>\033[0m" >&2
+  print -l "\033[1;33musage: \033[0;32mmkcpr \033[4;37m<projectname>\033[0m" >&2
   print -l "no project created"
   exit 1
 }
@@ -28,7 +28,8 @@ if (( $? != 0 )) {
   print -l "no project created"
   exit 4
 }
-cp -r ~/.config/scripts/mkxpr/{.clang-format,verilator/*(D)} $1
+cp ~/.config/scripts/mkxpr/.clang-format $1
+cp ~/.config/scripts/mkxpr/cpp/Makefile $1
 if (( $? != 0 )) {
   print -l "\033[1;31merror: \033[0munknown error occurred" >&2
   print -l "no templates copied"
