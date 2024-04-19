@@ -12,6 +12,8 @@ export VISUAL="nvim"
 # my script dir
 export PATH="$HOME/.config/scripts:$PATH"
 
+export PATH="$PATH:$HOME/.ghcup/bin"
+
 export CODE="$HOME/workspace/mcd"
 
 export XDG_CONFIG_HOME="$HOME/.config"

@@ -4,14 +4,6 @@ return {
   config = function()
     -- Global mappings.
     -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-    local wk = require("which-key")
-    wk.register({
-      ["<leader>ed"] = { vim.diagnostic.open_float, "Diagnostic" },
-      ["[d"] = { vim.diagnostic.goto_prev, "Prev Diagnostic" },
-      ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
-      ["<leader>q"] = { vim.diagnostic.setloclist, "setloclist" },
-    })
-
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
@@ -24,6 +16,13 @@ return {
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
         local opts = { buffer = ev.buf }
+        local wk = require("which-key")
+        wk.register({
+          ["<leader>ed"] = { vim.diagnostic.open_float, "Diagnostic" },
+          ["[d"] = { vim.diagnostic.goto_prev, "Prev Diagnostic" },
+          ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
+          ["<leader>q"] = { vim.diagnostic.setloclist, "setloclist" },
+        }, opts)
         wk.register({
           ["g"] = {
             D = { vim.lsp.buf.declaration, "Declaration" },

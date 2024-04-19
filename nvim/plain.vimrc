@@ -33,25 +33,25 @@ set nowrapscan
 let g:mapleader=" "
 let g:maplocalleader=" "
 
-nnoremap <silent> <leader>sa :w<cr>
+nnoremap <silent> <leader>sa <cmd>w<cr>
 inoremap jk <esc>
 
-vnoremap <silent> J :m '>+1<cr>gv=gv
-vnoremap <silent> K :m '<-2<cr>gv=gv
+vnoremap <silent> J <cmd>m '>+1<cr>gv=gv
+vnoremap <silent> K <cmd>m '<-2<cr>gv=gv
 
-nnoremap <silent> <leader>sv :vsplit<cr>
-nnoremap <silent> <leader>sh :split<cr>
+nnoremap <silent> <leader>sv <cmd>vsplit<cr>
+nnoremap <silent> <leader>sh <cmd>split<cr>
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <silent> <leader>nh :nohl<cr>
+nnoremap <silent> <leader>nh <cmd>nohl<cr>
 
-nnoremap <silent> <S-L> :bnext<cr>
-nnoremap <silent> <S-H> :bprevious<cr>
-nnoremap <silent> <leader>bd :bdelete<cr>
+nnoremap <silent> <S-L> <cmd>bnext<cr>
+nnoremap <silent> <S-H> <cmd>bprevious<cr>
+nnoremap <silent> <leader>bd <cmd>bdelete<cr>
 
 tnoremap <C-n><C-n> <C-\\><C-n>
 
-nnoremap <leader>gg gg=Gzz
+nnoremap <leader>gg gg=G``

@@ -36,7 +36,7 @@
     max_icon_size = 64
 
     dmenu = /usr/bin/wofi -p dunst:
-    browser = /usr/bin/firefox
+    browser = /usr/bin/floorp
 
     title = Dunst
     class = Dunst

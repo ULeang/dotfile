@@ -28,6 +28,11 @@ map("t", "<C-g><C-g>", "<C-\\><C-n>", opt)
 
 map("n","<leader>ft","gg=G``", opt)
 
-map("i", "<C-f>", "<Right>", opt)
-map("i", "<C-b>", "<Left>", opt)
+map("i", "<C-f>", "<right>", opt)
+map("i", "<C-b>", "<left>", opt)
+map("i", "<C-n>", "<down>", opt)
+map("i", "<C-p>", "<up>", opt)
+map("i", "<C-a>", "<home>", opt)
+map("i", "<C-e>", "<end>", opt)
+
 map({"n", "i", "v", "x"}, "<C-g>", "<esc>", opt)

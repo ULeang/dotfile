@@ -21,19 +21,20 @@
     "on-click": "activate",
     "format": "{icon}",
     "format-icons": {
-      "1": "",
-      "2": "",
-      "3": "",
-      "4": "",
-      "5": "",
-      "urgent": "",
-      "active": "",
-      "special": "",
-      "default": ""
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "urgent": "",
+      "active": "",
+      "special": "",
+      "default": ""
     }
   },
   "custom/updates": {
     "exec": "(paru -Qua) | wc -l",
+    "exec-on-event": true,
     "interval": 7200,
     "format": "󰁪 {}"
   },
@@ -41,7 +42,7 @@
     "icon-size": 13,
     "tooltip": false,
     "spacing": 10
-  }, 
+  },
   "clock": {
     "format": "{:%A, %B %d, %R}",
     "format-alt": "{:%H:%M}",
@@ -151,7 +152,9 @@
     "format-charging": " {capacity}%",
     "format-plugged": " {capacity}%",
     "states": {
-      "good": 95,
+      "good": 100,
+      "normal": 70,
+      "half": 50,
       "warning": 30,
       "critical": 20
     }
@@ -210,13 +213,13 @@
     "on-click": "mpc toggle",
     "on-click-right": "mpc next",
     "on-click-middle": "notify-send \"$(mpc status)\"",
-    "on-scroll-up": "mpc seekthrough +5",
-    "on-scroll-down": "mpc seekthrough -5",
+    "on-scroll-up": "mpc seekthrough -5",
+    "on-scroll-down": "mpc seekthrough +5",
     "state-icons": {
         "paused": "",
         "playing": ""
     },
     "artist-len": 10,
-    "title-len": 25
+    "title-len": 20
   }
 }
