@@ -8,7 +8,7 @@ return {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
         -- nvim >= 0.10.0
-        vim.lsp.inlay_hint.enable()
+        vim.lsp.inlay_hint.enable(true)
 
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'

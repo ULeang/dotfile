@@ -216,8 +216,8 @@
     "on-scroll-up": "mpc seekthrough -5",
     "on-scroll-down": "mpc seekthrough +5",
     "state-icons": {
-        "paused": "",
-        "playing": ""
+        "paused": "󰒲",
+        "playing": "󰽰"
     },
     "artist-len": 7,
     "title-len": 15

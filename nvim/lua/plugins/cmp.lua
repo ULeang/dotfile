@@ -16,6 +16,16 @@ return {
     },
     config = function()
       local cmp = require("cmp")
+      local mapping =
+      {
+        ['<c-b>'] = cmp.mapping.scroll_docs(-4),
+        ['<c-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-g>'] = cmp.mapping.abort(),
+        ['<tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<cr>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ['<c-n>'] = cmp.mapping.select_next_item(),
+        ['<c-p>'] = cmp.mapping.select_prev_item(),
+      };
       cmp.setup({
         snippet = {
           expand = function(args)
@@ -26,15 +36,7 @@ return {
           completion = cmp.config.window.bordered(),
           documentation = cmp.config.window.bordered(),
         },
-        mapping = {
-          ['<c-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<c-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-g>'] = cmp.mapping.abort(),
-          ['<tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<cr>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<c-n>'] = cmp.mapping.select_next_item(),
-          ['<c-p>'] = cmp.mapping.select_prev_item(),
-        },
+        mapping = mapping,
         sources = cmp.config.sources({
           { name = 'nvim_lsp' },
           { name = 'nvim_lsp_signature_help' },

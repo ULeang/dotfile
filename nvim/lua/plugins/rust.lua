@@ -20,7 +20,8 @@ return {
       vim.g.rustaceanvim = {
         tools = {
           executor = M,
-          test_executor = 'background',
+          test_executor = M,
+          -- test_executor = 'background',
           on_initialized = function(health)
             local h = health.health
             if h ~= "ok" then
@@ -30,7 +31,7 @@ return {
         },
         server = {
           on_attach = function(_, bufnr)
-            vim.lsp.inlay_hint.enable()
+            -- vim.lsp.inlay_hint.enable()
             local wk = require("which-key")
             wk.register({
               ["<C-;>"] = { function() vim.cmd.RustLsp { 'hover','actions' } end, "Hover Action - Rust" },

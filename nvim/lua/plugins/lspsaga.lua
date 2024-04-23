@@ -16,7 +16,7 @@ return {
       ["<leader>"] = {
         l = {
           name = "Lsp",
-          I = { "<cmd>Lspsaga incomming_calls<cr>", "Incomming Calls" },
+          I = { "<cmd>Lspsaga incoming_calls<cr>", "Incoming Calls" },
           O = { "<cmd>Lspsaga outgoing_calls<cr>", "Outgoing Calls" },
           a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
           d = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definition" },

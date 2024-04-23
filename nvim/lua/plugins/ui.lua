@@ -11,13 +11,21 @@ return {
             {
               filetype = "neo-tree",
               text = "Neo-tree",
-              highlight = "Directory",
+              -- highlight = "Directory",
               text_align = "left",
+              seperator = true,
             },
           },
           separator_style = "slant",
           diagnostics = "nvim_lsp",
           always_show_bufferline = false,
+          -- numbers = "buffer_id",
+          -- indicator = { style = 'underline' },
+          -- hover = {
+          --   enabled = true,
+          --   delay = 200,
+          --   reveal = {'close'}
+          -- }
         }
       }
       local wk = require("which-key")

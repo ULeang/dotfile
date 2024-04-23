@@ -55,3 +55,7 @@ nnoremap <silent> <leader>bd <cmd>bdelete<cr>
 tnoremap <C-n><C-n> <C-\\><C-n>
 
 nnoremap <leader>gg gg=G``
+
+let g:fcitx5state=system("fcitx5-remote")
+autocmd InsertLeave * <cmd>silent let g:fcitx5state=system("fcitx5-remote")[0] | silent !fcitx5-remote -c
+autocmd InsertEnter * <cmd>silent if fcitx5state==2 | silent !fcitx5-remote -o | endif
