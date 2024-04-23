@@ -1,5 +1,0 @@
-#!/usr/bin/zsh
-
-raw=$(brightnessctl -d amdgpu_bl1 g)
-norm=$(( $raw * 100 / 255 ))
-echo $norm
