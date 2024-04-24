@@ -1,4 +1,7 @@
 if status --is-interactive
+  set -gx PATH $PATH "/usr/lib/rustup/bin"
+  set -gx PATH "$HOME/.config/scripts" $PATH
+  set -gx PATH $PATH "$HOME/.ghcup/bin"
 # mpc
 # export MPD_HOST="$HOME/.config/mpd/socket"
   set -gx MPD_HOST localhost
@@ -8,10 +11,6 @@ if status --is-interactive
   set -gx VISUAL nvim
 
 # my scgxipt dir
-  set -gx PATH "$HOME/.config/scripts" $PATH
-
-  set -gx PATH $PATH "$HOME/.ghcup/bin"
-
   set -gx XDG_CONFIG_HOME "$HOME/.config"
   set -gx XDG_DATA_HOME "$HOME/.local/share"
   set -gx XDG_CACHE_HOME "$HOME/.cache"

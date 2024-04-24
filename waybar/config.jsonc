@@ -2,8 +2,8 @@
   "output": "eDP-1",
   "include": "~/.config/waybar/common.jsonc",
   "modules-left": [
-    "hyprland/workspaces",
-    "mpd"
+    "hyprland/workspaces"
+    // "mpd"
     // "hyprland/window"
   ],
   "modules-center": [

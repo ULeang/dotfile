@@ -145,13 +145,13 @@ DEP+=$(patsubst %.S,$(BUILD_DEP_D)/%.d,$(ASM))
 all: $(MASTER_BIN) $(BINS) $(TEST_BIN) $(SO_FILE) $(A_FILE)
 
 $(MASTER_BIN): $(MASTER_OBJ) $(OBJ)
-	@$(CC) -o $@ $^ $(CPPFLAGS) $(CFLAGS)
+	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(BINS): $(BIN_D)/%: $(BUILD_OBJ_D)/%.o $(OBJ)
-	@$(CC) -o $@ $^ $(CPPFLAGS) $(CFLAGS)
+	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(TEST_BIN): $(TEST_D)/%: $(BUILD_OBJ_D)/%.o $(OBJ)
-	@$(CC) -o $@ $^ $(CPPFLAGS) $(CFLAGS)
+	@$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $^
 
 $(SO_FILE): $(OBJ)
 	@$(CC) -o $@ -shared $^ $(CPPFLAGS) $(CFLAGS) $(CCSOFLAGS)
@@ -223,18 +223,18 @@ endif
 clean:
 	@rm -rf $(MASTER_BIN) $(BUILD_D) $(BIN_D) $(TEST_D) $(LIB_BIN_D)
 
-_mk_build_path:=$(shell mkdir -p $(BUILD_OBJ_D) $(BUILD_DEP_D))
+ $(shell mkdir -p $(BUILD_OBJ_D) $(BUILD_DEP_D))
 ifneq ($(words $(BINS_SRC)),0)
-_mk_bin_path:=$(shell mkdir -p $(BIN_D))
+ $(shell mkdir -p $(BIN_D))
 endif
 ifneq ($(words $(TEST_SRC)),0)
-_mk_bin_path:=$(shell mkdir -p $(TEST_D))
+ $(shell mkdir -p $(TEST_D))
 endif
 ifneq ($(words $(LIBSO)),0)
-_mk_bin_path:=$(shell mkdir -p $(LIB_BIN_D))
+ $(shell mkdir -p $(LIB_BIN_D))
 endif
 ifneq ($(words $(LIBA)),0)
-_mk_bin_path:=$(shell mkdir -p $(LIB_BIN_D))
+ $(shell mkdir -p $(LIB_BIN_D))
 endif
 ifneq ($(MAKECMDGOALS),clean)
 -include $(MASTER_DEP) $(BINS_DEP) $(DEP) $(TEST_DEP)

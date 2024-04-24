@@ -219,7 +219,7 @@
         "paused": "󰒲",
         "playing": "󰽰"
     },
-    "artist-len": 7,
-    "title-len": 15
+    "artist-len": 15,
+    "title-len": 20
   }
 }
