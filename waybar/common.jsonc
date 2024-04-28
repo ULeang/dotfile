@@ -33,7 +33,7 @@
     }
   },
   "custom/updates": {
-    "exec": "(paru -Qua) | wc -l",
+    "exec": "paru -Qu | grep -v '\\[ignored\\]$' | wc -l",
     "exec-on-event": true,
     "interval": 7200,
     "format": "󰁪 {}"
@@ -180,7 +180,7 @@
     "format-linked": "{ifname} (No IP)",
     "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}",
     "tooltip-format": "{essid} - {ifname} via {gwaddr}\n  {bandwidthUpBytes}\n  {bandwidthDownBytes}",
-    "on-click-right": "kitty nmtui"
+    "on-click-right": "hyprctl dispatch exec '[float;size 800 500;move center]' kitty nmtui"
   },
   "cpu": {
     "interval": 1,

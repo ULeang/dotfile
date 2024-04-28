@@ -8,26 +8,6 @@ set $kitty kitty -c /home/ulya/.config/kitty/kitty_i3.conf
 # is used in the bar {} block below.
 font pango:SourceHanSans 14
 
-exec_always --no-startup-id xrandr --output eDP-1 --scale 0.75x0.75
-exec_always --no-startup-id xrandr --output DP-1 --scale 0.75x0.75
-exec_always --no-startup-id xrandr --output DP-1 --auto --below eDP-1
-
-exec_always --no-startup-id dunst
-exec_always --no-startup-id fcitx5
-exec_always --no-startup-id udiskie &
-exec_always --no-startup-id copyq
-
-set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle && $refresh_i3status
-bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set 10%+ && $refresh_i3status
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 10%- && $refresh_i3status
-bindsym XF86AudioPlay exec --no-startup-id mpc toggle && $refresh_i3status
-bindsym XF86AudioPrev exec --no-startup-id mpc prev && $refresh_i3status
-bindsym XF86AudioNext exec --no-startup-id mpc next && $refresh_i3status
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -36,7 +16,7 @@ floating_modifier $mod
 tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $mod+q exec $kitty
+bindsym $mod+Shift+t exec $kitty
 
 bindsym $mod+i exec floorp
 bindsym $mod+m exec $kitty musicfox
@@ -76,7 +56,7 @@ bindsym $mod+semicolon split h
 bindsym $mod+comma split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+c layout toggle split
@@ -105,9 +85,6 @@ set $ws7 "7"
 set $ws8 "8"
 set $ws9 "9"
 set $ws10 "10: builtin"
-
-workspace $ws10 output eDP-1
-workspace $ws1 output DP-1
 
 # switch to workspace
 bindsym $mod+1 workspace number $ws1
@@ -165,15 +142,15 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-default_border pixel 4
-default_floating_border pixel 4
-hide_edge_borders both
-popup_during_fullscreen smart
-
-gaps inner 8
-gaps outer 20
-gaps bottom 2
-gaps top 4
+# default_border pixel 4
+# default_floating_border pixel 4
+# hide_edge_borders both
+# popup_during_fullscreen smart
+#
+# gaps inner 8
+# gaps outer 20
+# gaps bottom 2
+# gaps top 4
 
 # class                 border  backgr. text    indicator child_border
 client.focused          #81a1c1 #81a1c1 #F8F8F2 #81a1c1   #81a1c1
@@ -201,28 +178,24 @@ for_window [class="copyq"] move position center
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-        status_command i3status
-        mode dock
-        bindsym button4 exec --no-startup-id wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+ && $refresh_i3status
-        bindsym button5 exec --no-startup-id wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && $refresh_i3status
-        position top
-        output eDP-1
-        output DP-1
-        tray_output DP-1
-        font pango:JetBrainsMono Nerd Font 14
-        separator_symbol "||"
-        workspace_buttons yes
-        workspace_min_width 100
-        binding_mode_indicator yes
-        colors {
-                background #000000
-                statusline #FFFFFF
-                separator  #2FFF52
-                focused_workspace  #87cefa #87cefa #2f4f4f
-                active_workspace   #353439 #353439 #FFFFFF
-                inactive_workspace #353439 #11111b #87cefa
-                urgent_workspace   #dc143c #dc143c #FFFFFF
-        }
-        padding 2px
-}
+# bar {
+#         status_command i3status
+#         bindsym button1 exec --no-startup-id $kitty
+#         mode dock
+#         position top
+#         font pango:JetBrainsMono Nerd Font 14
+#         separator_symbol "||"
+#         workspace_buttons yes
+#         workspace_min_width 100
+#         binding_mode_indicator yes
+#         colors {
+#                 background #000000
+#                 statusline #FFFFFF
+#                 separator  #2FFF52
+#                 focused_workspace  #87cefa #87cefa #2f4f4f
+#                 active_workspace   #353439 #353439 #FFFFFF
+#                 inactive_workspace #353439 #11111b #87cefa
+#                 urgent_workspace   #dc143c #dc143c #FFFFFF
+#         }
+#         padding 2px
+# }

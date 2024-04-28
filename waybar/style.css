@@ -49,17 +49,17 @@ tooltip {
 
 #workspaces {
   background-color: transparent;
-  padding-left:10px;
+  padding-left: 0;
+  padding-right: 0;
   margin-left: 15px;
   margin-right: 10px;
 }
 
 #workspaces button {
-  padding: 5px;
   background-color: #11111b;
   padding-right: 15px;
   padding-left: 10px;
-  margin: 0 3px 0 3px;
+  margin: 0 6px 0 0;
   border-radius: 15px;
   transition: all 0.5s cubic-bezier(.55,-0.68,.48,1.68);
   /* box-shadow: rgba(0,0,0,0.2) 2 2 5 2px; */
