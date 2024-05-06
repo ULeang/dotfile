@@ -185,6 +185,10 @@ clean:
 cleanall:
 	@rm -rf $(MDIR_BACKUP) $(WAVE_D)
 
+.PHONY: verible
+verible:
+	@fd ".*\.(v|sv)$$" "./$(MASTER_D)" > verible.filelist
+
 ifneq ($(MAKECMDGOALS),clean)
  $(shell mkdir -p $(WAVE_D))
  $(shell mkdir -p $(MDIR))

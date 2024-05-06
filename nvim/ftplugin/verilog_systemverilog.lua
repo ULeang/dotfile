@@ -1,3 +1,3 @@
-local set = vim.o
-
-set.smartindent = false
+-- local set = vim.o
+--
+-- set.smartindent = false

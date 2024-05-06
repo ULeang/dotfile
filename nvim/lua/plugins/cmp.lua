@@ -43,15 +43,17 @@ return {
           { name = 'nvim_lua' },
           { name = 'luasnip' },
           { name = 'path' },
+          { name = 'fish' },
           { name = 'crates' }
         },{
             { name = 'buffer', keyword_length = 3 }
           }),
         sorting = {
           comparators = {
-            cmp.config.compare.offset,
             cmp.config.compare.exact,
+            cmp.config.compare.score,
             cmp.config.compare.recently_used,
+            cmp.config.compare.offset,
             require("clangd_extensions.cmp_scores"),
             cmp.config.compare.kind,
             cmp.config.compare.sort_text,
@@ -62,7 +64,8 @@ return {
         view = {
           entries = {
             name = "custom",
-            selection_order = "near_cursor",
+            selection_order = "top_down",
+            -- selection_order = "near_cursor",
           }
         },
         formatting = {
@@ -150,4 +153,8 @@ return {
       delete_check_events = "TextChanged",
     }
   },
+  {
+    "mtoohey31/cmp-fish",
+    ft = "fish",
+  }
 }

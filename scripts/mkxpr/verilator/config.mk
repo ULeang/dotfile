@@ -1,5 +1,5 @@
 # the master module name
-MASTER:=mux2a2d
+MASTER:=cputs
 
 # multithreaded simulation model
 THREADS:=1

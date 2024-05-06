@@ -5,8 +5,8 @@ return {
     'nvim-telescope/telescope.nvim', -- optional
   },
   version = '^3', -- recommended
-  lazy = false,
-  -- ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
+  lazy = true,
+  ft = { 'haskell', 'lhaskell', 'cabal', 'cabalproject' },
   config = function()
     -- vim.g.haskell_tools = {
     --   ---@type ToolsOpts
