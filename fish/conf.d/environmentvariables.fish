@@ -21,6 +21,11 @@ if status --is-interactive
   set -gx AM_HOME "$HOME/ysyx-workbench/abstract-machine"
   set -gx NPC_HOME "$HOME/ysyx-workbench/npc"
   set -gx NVBOARD_HOME "$HOME/ysyx-workbench/nvboard"
+  set -gx CPUTS_HOME "$HOME/ysyx-workbench/cputs"
 
   set -g fish_greeting
+
+# some program expects some behaviours of bash/sh,
+# see https://wiki.archlinux.org/title/Fish#Setting_fish_as_default_shell
+  set -gx DEBUGINFOD_URLS "https://debuginfod.archlinux.org"
 end
