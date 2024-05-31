@@ -10,8 +10,9 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/cmp-cmdline',
       'neovim/nvim-lspconfig',
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
+      -- 'L3MON4D3/LuaSnip',
+      -- 'saadparwaiz1/cmp_luasnip',
+      'garymjr/nvim-snippets',
       'onsails/lspkind.nvim',
     },
     config = function()
@@ -28,9 +29,9 @@ return {
       };
       cmp.setup({
         snippet = {
-          expand = function(args)
-            require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-          end,
+          -- expand = function(args)
+          --   require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+          -- end,
         },
         window = {
           completion = cmp.config.window.bordered(),
@@ -41,7 +42,8 @@ return {
           { name = 'nvim_lsp' },
           { name = 'nvim_lsp_signature_help' },
           { name = 'nvim_lua' },
-          { name = 'luasnip' },
+          -- { name = 'luasnip' },
+          { name = 'snippets' },
           { name = 'path' },
           { name = 'fish' },
           { name = 'crates' }
@@ -135,23 +137,77 @@ return {
       -- }
     end,
   },
+  -- {
+  --   "L3MON4D3/LuaSnip",
+  --   event = "VeryLazy",
+  --   dependencies = { 
+  --     "rafamadriz/friendly-snippets",
+  --     config = function()
+  --       require("luasnip.loaders.from_vscode").lazy_load()
+  --     end,
+  --   },
+  --   -- follow latest release.
+  --   version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+  --   -- install jsregexp (optional!).
+  --   build = "make install_jsregexp",
+  --   opts = {
+  --     history = true,
+  --     delete_check_events = "TextChanged",
+  --   }
+  -- },
   {
-    "L3MON4D3/LuaSnip",
-    event = "VeryLazy",
-    dependencies = { 
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
+    "garymjr/nvim-snippets",
+    dependencies = "rafamadriz/friendly-snippets",
+    keys = {
+      {
+        "<Tab>",
+        function()
+          if vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
+            return
+          end
+          return "<Tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = "i",
+      },
+      {
+        "<Tab>",
+        function()
+          vim.schedule(function()
+            vim.snippet.jump(1)
+          end)
+        end,
+        expr = true,
+        silent = true,
+        mode = "s",
+      },
+      {
+        "<S-Tab>",
+        function()
+          if vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
+            return
+          end
+          return "<S-Tab>"
+        end,
+        expr = true,
+        silent = true,
+        mode = { "i", "s" },
+      },
     },
-    -- follow latest release.
-    version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-    -- install jsregexp (optional!).
-    build = "make install_jsregexp",
     opts = {
-      history = true,
-      delete_check_events = "TextChanged",
-    }
+      create_cmp_source = true,
+      friendly_snippets = true,
+      extended_filetypes = {
+        cpp = { 'c' }
+      }
+    },
   },
   {
     "mtoohey31/cmp-fish",

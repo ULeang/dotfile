@@ -18,8 +18,19 @@ return {
     end
   },
   {
+    'echasnovski/mini.files',
+    version = false,
+    config = function()
+      local wk = require("which-key")
+      wk.register({
+        ["<leader>fm"] = { function()MiniFiles.open()end, "MiniFiles Open" },
+      })
+      require('mini.files').setup()
+    end
+  },
+  {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
+    -- branch = "v3.x",
     -- event = VeryLazy,
     dependencies = { 
       "nvim-lua/plenary.nvim",

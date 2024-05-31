@@ -40,15 +40,17 @@ return {
         -- "                                                     ",
       }
 
+      local configpath = vim.fn.stdpath("config")
       -- Set menu
       dashboard.section.buttons.val = {
-        dashboard.button("n", "  New",  ":enew <BAR> startinsert <CR>"),
-        dashboard.button("f", "  Find", ":Telescope find_files <CR>"),
-        dashboard.button("o", "  Recent",  ":Telescope oldfiles <CR>"),
-        dashboard.button("g", "  Grep",  ":Telescope live_grep <CR>"),
-        dashboard.button("s", "  Settings", ":cd ~/.config/nvim | Neotree focus filesystem float toggle<CR>"),
-        dashboard.button("l", "󰒲  Lazy", ":Lazy<cr>"),
-        dashboard.button("q", "  Quit", ":qa<CR>"),
+        dashboard.button("n", "  New",  "<cmd>enew <bar> startinsert<cr>"),
+        dashboard.button("f", "  Find", "<cmd>Telescope find_files<cr>"),
+        dashboard.button("o", "  Recent",  "<cmd>Telescope oldfiles<cr>"),
+        dashboard.button("g", "  Grep",  "<cmd>Telescope live_grep<cr>"),
+        dashboard.button("s", "  Settings", "<cmd>cd " .. configpath .. " <bar> Neotree focus filesystem float toggle<cr>"),
+        dashboard.button("l", "󰒲  Lazy", "<cmd>Lazy<cr>"),
+        dashboard.button("q", "  Quit", "<cmd>qa<cr>"),
+        -- dashboard.button("s", "  Settings", ":cd ~/.config/nvim | Neotree focus filesystem float toggle<CR>"),
         -- dashboard.button( "f", "  > Find file", ":cd $HOME/Workspace | Telescope find_files<CR>"),
         -- dashboard.button( "r", "  > Recent"   , ":Telescope oldfiles<CR>"),
         -- dashboard.button( "s", "  > Settings" , ":e $MYVIMRC | :cd %:p:h | split . | wincmd k | pwd<CR>"),

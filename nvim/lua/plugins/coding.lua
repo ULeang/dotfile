@@ -13,12 +13,29 @@ return {
       require("nvim-autopairs").setup {}
     end
   },
+  -- {
+  --   "numToStr/Comment.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require('Comment').setup()
+  --   end
+  -- },
   {
-    "numToStr/Comment.nvim",
+    "folke/ts-comments.nvim",
+    opts = {
+      lang = {
+        verilog = {
+          "// %s",
+          "/* %s */",
+        },
+        systemverilog = {
+          "// %s",
+          "/* %s */",
+        },
+      }
+    },
     event = "VeryLazy",
-    config = function()
-      require('Comment').setup()
-    end
+    enabled = vim.fn.has("nvim-0.10.0") == 1,
   },
   {
     "lukas-reineke/indent-blankline.nvim",

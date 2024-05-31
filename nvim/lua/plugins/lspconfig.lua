@@ -8,7 +8,7 @@ return {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),
       callback = function(ev)
         -- nvim >= 0.10.0
-        vim.lsp.inlay_hint.enable(true)
+        vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
 
         -- Enable completion triggered by <c-x><c-o>
         vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
@@ -54,11 +54,15 @@ return {
     require('lspconfig').clangd.setup {
       capabilities = capabilities
     }
-    require('lspconfig').verible.setup{
+    require('lspconfig').verible.setup {
+      capabilities = capabilities,
       cmd = {
         "verible-verilog-ls"
       },
       root_dir = function() return vim.loop.cwd() end
+    }
+    require('lspconfig').zls.setup {
+      capabilities = capabilities
     }
   end
 }

@@ -1,0 +1,76 @@
+{
+  "while continue": {
+    "prefix": "while continue",
+    "body": [
+      "while ($1) : ($2) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "while continue"
+  },
+  "optional-if": {
+    "prefix": "if optional",
+    "body": [
+      "if ($1) |${2:some}| {",
+      "\t$3",
+      "} else {",
+      "\t$4",
+      "}"
+    ],
+    "description": "optional-if"
+  },
+  "error union if": {
+    "prefix": "if error",
+    "body": [
+      "if ($1) |${2:ok}| {",
+      "\t$3",
+      "} else |${4:err}| {",
+      "\t$5",
+      "}"
+    ],
+    "description": "error union if"
+  },
+  "while optional": {
+    "prefix": "while optional",
+    "body": [
+      "while ($1) |${2:some}| : ($3) {",
+      "\t$0",
+      "}"
+    ],
+    "description": "while continue"
+  },
+  "while error union": {
+    "prefix": "while error",
+    "body": [
+      "while ($1) |${2:ok}| {",
+      "\t$3",
+      "} else |${4:err}| {",
+      "\t$5",
+      "}"
+    ],
+    "description": "while error"
+  },
+  "switch capture": {
+    "prefix": "switch capture",
+    "body": [
+      "switch ($1) {",
+      "\t.$2 => |${3:v}| {",
+      "\t\t$4",
+      "\t}$5",
+      "}"
+    ],
+    "description": "switch capture"
+  },
+  "println": {
+    "prefix": "println",
+    "body": "std.debug.print(\"$1\\n\", .{$0});",
+    "description": "println"
+  },
+  "life essential": {
+    "prefix": "life essential",
+    "body": [
+      "const std = @import(\"std\");"
+    ],
+    "description": "life essential"
+  }
+}
