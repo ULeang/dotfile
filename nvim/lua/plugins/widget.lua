@@ -1,37 +1,132 @@
 return {
   {
     "voldikss/vim-floaterm",
-    config=function()
+    config = function()
       local wk = require("which-key")
-      wk.register({
-        ["<leader>"] = {
-          t = {
-            name = "+term option",
-            n = { "<cmd>FloatermNew<cr>", "New terminal"},
-            t = { "<cmd>FloatermToggle<cr>", "Toggle terminal"},
-            h = { "<cmd>FloatermPrev<cr>", "Prev terminal"},
-            l = { "<cmd>FloatermNext<cr>", "Next terminal"},
-            k = { "<cmd>FloatermKill<cr>", "Kill terminal"},
-          }
-        }})
+      wk.add({
+        -- { "<leader>t", group = "Todo and Term" }, -- in `coding.lua`
+        { "<leader>tn", "<cmd>FloatermNew<cr>", desc = "New terminal"},
+        { "<leader>tt", "<cmd>FloatermToggle<cr>", desc = "Toggle terminal"},
+        { "<leader>th", "<cmd>FloatermPrev<cr>", desc = "Prev terminal"},
+        { "<leader>tl", "<cmd>FloatermNext<cr>", desc = "Next terminal"},
+        { "<leader>tk", "<cmd>FloatermKill<cr>", desc = "Kill terminal"},
+        { "<c-g><c-g>", "<c-\\><c-n><cmd>FloatermToggle<cr>", desc = "Toggle terminal", mode = "t" },
+      })
       vim.g.floaterm_borderchars="─│─│╭╮╯╰"
     end
   },
   {
     'echasnovski/mini.files',
     version = false,
+    event = "VeryLazy",
     config = function()
-      local wk = require("which-key")
-      wk.register({
-        ["<leader>fm"] = { function()MiniFiles.open()end, "MiniFiles Open" },
-      })
       require('mini.files').setup()
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>fm", function() MiniFiles.open() end, desc = "MiniFiles Open" },
+      })
+    end
+  },
+  {
+    'stevearc/dressing.nvim',
+    event = "VeryLazy",
+    opts = {},
+  },
+  {
+    'rcarriga/nvim-notify',
+    name = 'notify',
+    config = function()
+      local ntf = require'notify'
+      ntf.setup({
+        render = "compact",
+      })
+      vim.notify = ntf
+    end
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      opts = {
+        cmdline = {
+          enabled = true,
+          view = "cmdline_popup",
+          format = {
+            search_down = { view = "cmdline", kind = "search", pattern = "^/", icon = "  ", lang = "regex" },
+            search_up = { view = "cmdline", kind = "search", pattern = "^%?", icon = "  ", lang = "regex" },
+            filter = { pattern = "^:%s*!", icon = "$", lang = "fish" },
+          }
+        },
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+          },
+        },
+        -- hide `written` messages
+        routes = {
+          {
+            filter = { event = 'msg_show', find = 'written', },
+            opts = { skip = true },
+          }
+        },
+        views = {
+          cmdline_popup = {
+            position = "40%",
+            size = { width = "auto", height = "auto", },
+          }
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          -- bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = true, -- add a border to hover docs and signature help
+        },
+      }
+      local noice = require('noice')
+      noice.setup(opts)
+
+      -- show `@recording` messages in the statusline
+      require('lualine').setup({
+        sections = {
+          lualine_x = {
+            {
+              noice.api.status.mode.get,
+              cond = noice.api.status.mode.has,
+              color = { fg = '#ff9e64' },
+            },
+            -- {
+            --   noice.api.status.search.get,
+            --   cond = noice.api.status.search.has,
+            --   color = { fg = "#ff9e64" },
+            -- },
+          }
+        }
+      })
+
+      require('which-key').add({
+        { "<leader>n", group = "Noice" },
+        { "<leader>nn", function() noice.cmd("history") end, desc = "History" },
+        { "<leader>nd", function() noice.cmd("dismiss") end, desc = "Dismiss" },
+        { "<leader>nt", function() noice.cmd("telescope") end, desc = "Telescope" },
+        { "<leader>nl", function() noice.cmd("last") end, desc = "Last" },
+        { "<leader>ne", function() noice.cmd("errors") end, desc = "Errors" },
+      })
     end
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
     -- branch = "v3.x",
-    -- event = VeryLazy,
+    event = "VeryLazy",
     dependencies = { 
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
@@ -40,10 +135,10 @@ return {
     },
     config = function ()
       local wk = require("which-key")
-      wk.register({
-        ["<leader>fe"] = { "<cmd>Neotree focus filesystem float toggle reveal<cr>", "Neotree float" },
-        ["<leader>ge"] = { "<cmd>Neotree focus git_status left toggle reveal<cr>", "Neotree git" },
-        ["\\"] = { "<cmd>Neotree focus filesystem left toggle reveal<cr>", "Neotree side" },
+      wk.add({
+        { "<leader>fe", "<cmd>Neotree focus filesystem float toggle reveal<cr>", desc = "Neotree float" },
+        { "<leader>ge", "<cmd>Neotree focus git_status left toggle reveal<cr>", desc = "Neotree git" },
+        { "\\", "<cmd>Neotree focus filesystem left toggle reveal<cr>", desc = "Neotree side" },
       })
       -- If you want icons for diagnostic errors, you'll need to define them somewhere:
       vim.fn.sign_define("DiagnosticSignError",

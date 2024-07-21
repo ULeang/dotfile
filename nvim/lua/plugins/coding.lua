@@ -8,10 +8,16 @@ return {
   },
   {
     "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-autopairs").setup {}
-    end
+    event = "InsertEnter",
+    opts = {
+      check_ts = true,
+      ts_config = {
+        -- lua = {'string'},-- it will not add a pair on that treesitter node
+      },
+      map_c_h = true,
+      map_c_w = true,
+      ignored_next_char = "[%w%.]" -- will ignore alphanumeric and `.` symbol
+    }
   },
   -- {
   --   "numToStr/Comment.nvim",
@@ -84,21 +90,12 @@ return {
     config = function()
       require("todo-comments").setup()
       local wk = require("which-key")
-      wk.register({
-        ["<leader>t"] = {
-          d = { "<cmd>TodoQuickFix<cr>", "Todo" },
-          f = { "<cmd>TodoTelescope<cr>", "Todo Telescope" },
-        },
-        ["[t"] = {
-          function()
-            require("todo-comments").jump_prev()
-          end, "Prev Todo"
-        },
-        ["]t"] = {
-          function()
-            require("todo-comments").jump_next()
-          end, "Next Todo"
-        },
+      wk.add({
+        { "<leader>t", group = "Todo and Term" },
+        { "<leader>td", "<cmd>TodoQuickFix<cr>", desc = "Todo" },
+        { "<leader>tf", "<cmd>TodoTelescope<cr>", desc = "Todo Telescope" },
+        { "[t", function() require("todo-comments").jump_prev() end, desc = "Prev Todo" },
+        { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo" },
       })
     end
   },

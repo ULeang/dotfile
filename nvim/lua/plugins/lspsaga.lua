@@ -12,25 +12,21 @@ return {
       }
     })
     local wk = require("which-key")
-    wk.register({
-      ["<leader>"] = {
-        l = {
-          name = "Lsp",
-          I = { "<cmd>Lspsaga incoming_calls<cr>", "Incoming Calls" },
-          O = { "<cmd>Lspsaga outgoing_calls<cr>", "Outgoing Calls" },
-          a = { "<cmd>Lspsaga code_action<cr>", "Code Action" },
-          d = { "<cmd>Lspsaga peek_definition<cr>", "Peek Definition" },
-          t = { "<cmd>Lspsaga peek_type_definition<cr>", "Peek Type Definition" },
-          D = { "<cmd>Lspsaga goto_definition<cr>", "Goto Definition" },
-          T = { "<cmd>Lspsaga goto_type_definition<cr>", "Goto Type Definition" },
-          f = { "<cmd>Lspsaga finder<cr>", "Finder" },
-          o = { "<cmd>Lspsaga outline<cr>", "Outline" }
-        },
-        ["rn"] = { "<cmd>Lspsaga rename<cr>", "Rename" }
-      },
-      ["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "Diagnostic Next" },
-      ["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "Diagnostic Prev" },
-      ["<C-;>"] = { "<cmd>Lspsaga hover_doc<cr>", "Hover" },
+    wk.add({
+      { "<leader>l", group = "Lspsaga" },
+      { "<leader>lI", "<cmd>Lspsaga incoming_calls<cr>", desc = "Incoming Calls" },
+      { "<leader>lO", "<cmd>Lspsaga outgoing_calls<cr>", desc = "Outgoing Calls" },
+      { "<leader>la", "<cmd>Lspsaga code_action<cr>", desc = "Code Action" },
+      { "<leader>ld", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek Definition" },
+      { "<leader>lt", "<cmd>Lspsaga peek_type_definition<cr>", desc = "Peek Type Definition" },
+      { "<leader>lD", "<cmd>Lspsaga goto_definition<cr>", desc = "Goto Definition" },
+      { "<leader>lT", "<cmd>Lspsaga goto_type_definition<cr>", desc = "Goto Type Definition" },
+      { "<leader>lf", "<cmd>Lspsaga finder<cr>", desc = "Finder" },
+      { "<leader>lo", "<cmd>Lspsaga outline<cr>", desc = "Outline" },
+      { "<leader>rn", "<cmd>Lspsaga rename<cr>", desc = "Rename" },
+      { "]d", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "Diagnostic Next" },
+      { "[d", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "Diagnostic Prev" },
+      { "<C-;>", "<cmd>Lspsaga hover_doc<cr>", desc = "Hover" },
     })
   end
 }

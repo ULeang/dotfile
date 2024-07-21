@@ -15,38 +15,36 @@ return {
 
         -- Buffer local mappings.
         -- See `:help vim.lsp.*` for documentation on any of the below functions
-        local opts = { buffer = ev.buf }
         local wk = require("which-key")
-        wk.register({
-          ["<leader>ed"] = { vim.diagnostic.open_float, "Diagnostic" },
-          ["[d"] = { vim.diagnostic.goto_prev, "Prev Diagnostic" },
-          ["]d"] = { vim.diagnostic.goto_next, "Next Diagnostic" },
-          ["<leader>q"] = { vim.diagnostic.setloclist, "setloclist" },
-        }, opts)
-        wk.register({
-          ["g"] = {
-            D = { vim.lsp.buf.declaration, "Declaration" },
-            d = { vim.lsp.buf.definition, "Definition" },
-            i = { vim.lsp.buf.implementation, "Implementation" },
-            k = { vim.lsp.buf.signature_help, "Signature Help" },
-            r = { vim.lsp.buf.references, "References" },
-          },
-          ["<leader>"] = {
-            w = {
-              name = "workspace",
-              a = { vim.lsp.buf.add_workspace_folder, "Add Folder" },
-              r = { vim.lsp.buf.remove_workspace_folder, "Remove Folder" },
-              l = { function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, "List Folder" },
+        wk.add({
+          {
+            buffer = ev.buf,
+            {
+              mode = "n",
+              { "<leader>ed", vim.diagnostic.open_float, desc = "Diagnostic" },
+              { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
+              { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
+              { "<leader>q", vim.diagnostic.setloclist, desc = "setloclist" },
+              { "gD", vim.lsp.buf.declaration, desc = "Declaration" },
+              { "gd", vim.lsp.buf.definition, desc = "Definition" },
+              { "gi", vim.lsp.buf.implementation, desc = "Implementation" },
+              { "gk", vim.lsp.buf.signature_help, desc = "Signature Help" },
+              { "gr", vim.lsp.buf.references, desc = "References" },
+              { "<leader>rn", vim.lsp.buf.rename, desc = "Rename" },
+              { "<leader>ft", function() vim.lsp.buf.format { async = true } end, desc = "Format" },
+              { "<C-;>", vim.lsp.buf.hover, desc = "Hover" },
+              { "<leader>w", group = "Workspace" },
+              { "<leader>wa", vim.lsp.buf.add_workspace_folder, desc = "Add Folder" },
+              { "<leader>wr", vim.lsp.buf.remove_workspace_folder, desc = "Remove Folder" },
+              { "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, desc = "List Folder" },
+              { "<leader>D", vim.lsp.buf.type_definition, desc = "Type Definition" },
             },
-            D = { vim.lsp.buf.type_definition, "Type Definition" },
+            {
+              mode = { "n", "v" },
+              { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action" },
+            },
           },
-          ["<leader>rn"] = { vim.lsp.buf.rename, "Rename" },
-          ["<leader>ft"] = { function() vim.lsp.buf.format { async = true } end, "Format" },
-          ["<C-;>"] = { vim.lsp.buf.hover, "Hover" };
-        }, opts)
-        wk.register({
-          ["<leader>ca"] = { vim.lsp.buf.code_action, "Code Action" },
-        },{ buffer = ev.buf, mode = { "n", "v" } })
+        })
       end,
     })
 

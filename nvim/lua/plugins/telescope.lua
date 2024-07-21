@@ -4,21 +4,16 @@ return {
     event = "VeryLazy",
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local opt = { noremap = true, silent = true }
       local builtin = require('telescope.builtin')
       local wk = require("which-key")
-      wk.register({
-        ["<leader>"] = {
-          f = {
-            name = "Telescope",
-            f = { builtin.find_files, "Find Files" },
-            g = { builtin.live_grep, "Live Grep" },
-            b = { builtin.buffers, "Buffers" },
-            h = { builtin.help_tags, "Help Tags" },
-            r = { builtin.oldfiles, "Old Files" },
-          },
-        },
-      }, opt)
+      wk.add({
+        { "<leader>f", group = "Telescope" },
+        { "<leader>ff", builtin.find_files, desc = "Find Files" },
+        { "<leader>fg", builtin.live_grep, desc = "Live Grep" },
+        { "<leader>fb", builtin.buffers, desc = "Buffers" },
+        { "<leader>fh", builtin.help_tags, desc = "Help Tags" },
+        { "<leader>fr", builtin.oldfiles, desc = "Old Files" },
+      })
     end,
   },
   {

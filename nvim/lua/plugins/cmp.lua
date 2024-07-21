@@ -1,7 +1,7 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    event = {"InsertEnter","CmdlineEnter"},
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-nvim-lua',
@@ -14,19 +14,22 @@ return {
       -- 'saadparwaiz1/cmp_luasnip',
       'garymjr/nvim-snippets',
       'onsails/lspkind.nvim',
+      {
+        "mtoohey31/cmp-fish",
+        ft = "fish",
+      }
     },
     config = function()
       local cmp = require("cmp")
-      local mapping =
-      {
+      local mapping = {
         ['<c-b>'] = cmp.mapping.scroll_docs(-4),
         ['<c-f>'] = cmp.mapping.scroll_docs(4),
-        ['<C-g>'] = cmp.mapping.abort(),
+        ['<c-g>'] = cmp.mapping.abort(),
         ['<tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ['<cr>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ['<c-n>'] = cmp.mapping.select_next_item(),
         ['<c-p>'] = cmp.mapping.select_prev_item(),
-      };
+      }
       cmp.setup({
         snippet = {
           -- expand = function(args)
@@ -110,9 +113,23 @@ return {
           })
       })
 
+      local cmdmapping = {
+        ['<tab>'] = {
+          c = function()
+            if cmp.visible() then
+              cmp.confirm({ select = true })
+            else
+              cmp.complete()
+            end
+          end
+        },
+        ['<c-n>'] = { c = cmp.mapping.select_next_item(), },
+        ['<c-p>'] = { c = cmp.mapping.select_prev_item(), },
+        ['<C-g>'] = { c = cmp.mapping.abort(), },
+      };
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ '/', '?' }, {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmdmapping,
         sources = {
           { name = 'buffer' }
         }
@@ -120,7 +137,7 @@ return {
 
       -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline(':', {
-        mapping = cmp.mapping.preset.cmdline(),
+        mapping = cmdmapping,
         sources = cmp.config.sources({
           { name = 'path' }
         }, {
@@ -208,9 +225,5 @@ return {
         cpp = { 'c' }
       }
     },
-  },
-  {
-    "mtoohey31/cmp-fish",
-    ft = "fish",
   }
 }

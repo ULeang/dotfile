@@ -1,7 +1,15 @@
 return{
   {
     'mfussenegger/nvim-dap',
-    event = "VeryLazy",
+    keys = {
+      {
+        "<leader>du",
+        function()
+          require('dapui').toggle()
+        end,
+        desc = "Dapui",
+      },
+    },
     config = function()
       local dap = require("dap")
       dap.adapters.codelldb = {
@@ -26,45 +34,35 @@ return{
       }
       dap.configurations.c = dap.configurations.cpp
       dap.configurations.rust = dap.configurations.cpp
-    end,
-  },
-  {
-    'rcarriga/nvim-dap-ui',
-    event = "VeryLazy",
-    dependencies = {
-      'mfussenegger/nvim-dap',
-      'nvim-neotest/nvim-nio'
-    },
-    config = function()
-      local dapui = require('dapui')
-      dapui.setup()
-      local dap = require('dap')
-      local wk = require("which-key")
-      wk.register({
-        ["<leader>"] = {
-          d = {
-            name = "Dap",
-            b = { function() dap.toggle_breakpoint() end, "Breakpoint" },
-            c = { function() dap.continue() end, "Continue" },
-            r = { function() dap.run_last() end, "Run Last" },
-            u = { function() dapui.toggle() end, "Dapui" },
-          }
-        },
-        ["<F10>"] = { function() dap.step_over() end, "Step Over" },
-        ["<F11>"] = { function() dap.step_into() end, "Step Into" },
-        ["<F12>"] = { function() dap.step_out() end, "Step Out" },
+
+      require('dapui').setup()
+      require("nvim-dap-virtual-text").setup()
+
+      require('which-key').add({
+        { "<leader>d", group = "Dap" },
+        { "<leader>db", function() dap.toggle_breakpoint() end, desc = "Breakpoint" },
+        { "<leader>dc", function() dap.continue() end, desc = "Continue" },
+        { "<leader>dr", function() dap.run_last() end, desc = "Run Last" },
+        { "<F10>", function() dap.step_over() end,  desc = "Step Over" },
+        { "<F11>", function() dap.step_into() end, desc = "Step Into" },
+        { "<F12>", function() dap.step_out() end, desc = "Step Out" },
       })
     end,
   },
   {
+    'rcarriga/nvim-dap-ui',
+    lazy = true,
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'nvim-neotest/nvim-nio'
+    },
+  },
+  {
     'theHamsta/nvim-dap-virtual-text',
-    event = "VeryLazy",
+    lazy = true,
     dependencies = {
       'mfussenegger/nvim-dap',
       'nvim-treesitter/nvim-treesitter',
     },
-    config = function()
-      require("nvim-dap-virtual-text").setup()
-    end
   }
 }
