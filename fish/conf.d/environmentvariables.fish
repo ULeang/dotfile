@@ -22,6 +22,7 @@ if status --is-interactive
   set -gx NPC_HOME "$HOME/ysyx-workbench/npc"
   set -gx NVBOARD_HOME "$HOME/ysyx-workbench/nvboard"
   set -gx CPUTS_HOME "$HOME/ysyx-workbench/cputs"
+  set -gx SOC_HOME "$HOME/ysyx-workbench/ysyxSoC"
 
   set -g fish_greeting
 

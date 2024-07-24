@@ -222,7 +222,8 @@ return {
       create_cmp_source = true,
       friendly_snippets = true,
       extended_filetypes = {
-        cpp = { 'c' }
+        cpp = { 'c' },
+        system_verilog = { 'verilog' }
       }
     },
   }

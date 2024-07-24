@@ -1,0 +1,54 @@
+{
+  "block": {
+    "prefix": "begin",
+    "body": [
+      "begin",
+      "\t$0",
+      "end"
+    ],
+    "description": "block"
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ($1) begin",
+      "\t$0",
+      "end"
+    ],
+    "description": "if"
+  },
+  "always_comb": {
+    "prefix": "always_comb",
+    "body": [
+      "always_comb begin",
+      "\t$0",
+      "end"
+    ],
+    "description": "always_comb"
+  },
+  "always_ff": {
+    "prefix": "always_ff",
+    "body": [
+      "always_ff @($1) begin",
+      "\t$0",
+      "end"
+    ],
+    "description": "always_ff"
+  },
+  "case": {
+    "prefix": "case",
+    "body": [
+      "case ($1)",
+      "\t$0",
+      "\tdefault: begin",
+      "\tend",
+      "endcase"
+    ],
+    "description": "case"
+  },
+  "logic array": {
+    "prefix": "logic [:0]",
+    "body": "logic [$1:0]",
+    "description": "logic array"
+  }
+}
